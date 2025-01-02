@@ -1,0 +1,107 @@
+version: '3'
+
+networks:
+  hass_net:
+    driver: bridge
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.31.0.0/24
+          gateway: 172.31.0.1
+        # - subnet: fd00:0:0:0:27::/80
+        #   gateway: fd00:0:0:0:27::1
+
+services:
+  matter-server:
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    network_mode: host
+    volumes:
+      - "/opt/homeAssistant/matter/data:/data"
+    restart: always
+    environment:
+      - TZ=Europe/Berlin
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  signal-cli-rest-api:
+    image: bbernhard/signal-cli-rest-api:latest
+    environment:
+      - MODE=json-rpc #supported modes: json-rpc, native, normal. json-prc is recommended for speed
+    networks:
+      - hass_net
+    volumes:
+      - "/opt/homeAssistant/signal-cli-config:/home/.local/share/signal-cli" # map "signal-cli-config" folder on host system into docker container. the folder contains the password and cryptographic keys when a new number is registered
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - TZ=Europe/Berlin
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  esphome:
+    privileged: false
+    networks:
+      - hass_net
+    container_name: esphome
+    image: "ghcr.io/esphome/esphome"
+    restart: always
+    command:
+      - "dashboard"
+      - "--user"
+      - "admin"
+      - "--password"
+      - "<PLEASE_ADD_YOUR_PASSWORD_HERE>"
+      - "/config"
+    volumes:
+      - "/opt/homeAssistant/esphome:/config"
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  hass:
+    privileged: false
+    network_mode: host
+    container_name: hass
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    restart: always
+    volumes:
+      - "/opt/homeAssistant/zigbee_ota:/opt/zigbee_ota"
+      - "/opt/homeAssistant/data:/config"
+      - "/opt/homeAssistant/hacs/PyLoxone/custom_components/loxone:/config/custom_components/loxone"
+      - "/opt/homeAssistant/hacs/huawei_solar:/config/custom_components/huawei_solar"
+      - "/opt/homeAssistant/hacs/huawei_solar_pees/packages:/config/packages"
+      - "/etc/letsencrypt/live/home.schleinzer.eu/fullchain.pem:/config/server-cert.pem:ro"
+      - "/etc/letsencrypt/live/home.schleinzer.eu/privkey.pem:/config/server-key.pem:ro"
+    devices:
+      #- "/dev/ttyHM:/dev/ttyHM"
+      - "/dev/ttyJeeLink69HC:/dev/ttyJeeLink"
+      - /dev/ttyCC2652rb:/dev/ttyACM0
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  web:
+    image: nginx:latest
+    restart: always
+    container_name: hass_nginx
+    depends_on:
+      - hass
+    networks:
+      hass_net:
+        ipv4_address: 172.31.0.250
+    ports:
+      - "56414:56414"
+      - "6443:6443"
+    volumes:
+      - "/opt/nginx/etc:/etc/nginx"
+      - "/opt/nginx/auth:/etc/nginx/auth"
+      - "/opt/nginx/html:/usr/share/nginx/html:ro"
+      - "/opt/nginx/sites-available/hass:/etc/nginx/sites-enabled/hass:ro"
+      - "/opt/nginx/sites-available/esphome:/etc/nginx/sites-enabled/esphome:ro"
+      - "/etc/letsencrypt:/etc/letsencrypt:ro"
+    labels:
+      - com.centurylinklabs.watchtower.enable=true

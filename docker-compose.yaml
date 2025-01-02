@@ -1,0 +1,41 @@
+services:
+  hass:
+    container_name: hass
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    privileged: false
+    networks:
+      - hass-net
+    ports:
+      - 8123:8123
+    restart: always
+    volumes:
+      - "./hass/data:/config"
+      - "./hacs/huawei_solar:/config/custom_components/huawei_solar"
+      - "./hacs/huawei_solar_pees/packages:/config/packages"
+    #devices:
+      #- "/dev/ttyUSB0:/dev/ttyUSB0"
+      #- "/dev/ttyHM:/dev/ttyHM"
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  matter-server:
+    container_name: matter-server
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    networks:
+      - hass-net
+    ports:
+      - 5580:5580
+    volumes:
+      - "./matter/data:/data"
+    restart: always
+    environment:
+      - TZ=Europe/Berlin
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+networks:
+    hass-net:
+      name: hass-net
+      driver: bridge
