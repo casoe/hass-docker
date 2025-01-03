@@ -2,19 +2,33 @@ services:
   hass:
     container_name: hass
     image: "ghcr.io/home-assistant/home-assistant:stable"
-    privileged: false
-    networks:
-      - hass-net
-    ports:
-      - 8123:8123
     restart: always
+    privileged: false
+    network_mode: host
     volumes:
       - "./homeAssistant/data:/config"
       - "./homeAssistant/hacs/huawei_solar:/config/custom_components/huawei_solar"
       - "./homeAssistant/hacs/huawei_solar_pees/packages:/config/packages"
     #devices:
       #- "/dev/ttyUSB0:/dev/ttyUSB0"
-      #- "/dev/ttyHM:/dev/ttyHM"
+    environment:
+      TZ: Europe/Berlin
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    restart: always
+    networks:
+      - hass-net
+    ports:
+      - 1883:1883
+      - 1884:1884
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
     environment:
       TZ: Europe/Berlin
     labels:
@@ -23,13 +37,10 @@ services:
   matter-server:
     container_name: matter-server
     image: ghcr.io/home-assistant-libs/python-matter-server:stable
-    networks:
-      - hass-net
-    ports:
-      - 5580:5580
+    restart: always
+    network_mode: host
     volumes:
       - "./homeAssistant/matter/data:/data"
-    restart: always
     environment:
       - TZ=Europe/Berlin
     labels:
