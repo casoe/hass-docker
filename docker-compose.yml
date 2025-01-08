@@ -1,18 +1,16 @@
 services:
   hass:
     container_name: hass
-    image: "ghcr.io/home-assistant/home-assistant:stable"
+    image: "ghcr.io/home-assistant/home-assistant:2024.12.5"
     restart: always
     network_mode: host
     volumes:
-      - "./hass/data:/config"
-      #- "./hacs/huawei_solar:/config/custom_components/huawei_solar"
-      #- "./hacs/huawei_solar_pees/packages:/config/packages"
+      - "/opt/homeAssistant/data:/config"
+      #- "/opt/homeAssistant/hacs/huawei_solar:/config/custom_components/huawei_solar"
+      #- "/opt/homeAssistant/hacs/huawei_solar_pees/packages:/config/packages"
     devices:
       - "/dev/ttyUSB0:/dev/ttyUSB0"
     environment:
-      - PUID=1000
-      - PGID=1000
       - TZ=Europe/Berlin
     labels:
       - com.centurylinklabs.watchtower.enable=true
@@ -23,10 +21,8 @@ services:
     restart: always
     network_mode: host
     volumes:
-      - "./matter/data:/data"
+      - "/opt/homeAssistant/matter/data:/data"
     environment:
-      - PUID=1000
-      - PGID=1000
       - TZ=Europe/Berlin
     labels:
       - com.centurylinklabs.watchtower.enable=true
@@ -42,12 +38,10 @@ services:
       - 1883:1883
       - 9001:9001
     volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
-      - ./mosquitto/log:/mosquitto/log
+      - "./mosquitto-config:/mosquitto/config"
+      - "/opt/mosquitto/data:/mosquitto/data"
+      - "/opt/mosquitto/log:/mosquitto/log"
     environment:
-      - PUID=1000
-      - PGID=1000
       - TZ=Europe/Berlin
     labels:
       - com.centurylinklabs.watchtower.enable=true
