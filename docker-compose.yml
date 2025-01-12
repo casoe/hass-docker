@@ -38,8 +38,8 @@ services:
       - 9001:9001
     volumes:
       - "./mosquitto-config:/mosquitto/config"
-      - "/opt/mosquitto/data:/mosquitto/data"
-      - "/opt/mosquitto/log:/mosquitto/log"
+      - "/opt/homeAssistant/mosquitto/data:/mosquitto/data"
+      - "/opt/homeAssistant/mosquitto/log:/mosquitto/log"
     environment:
       - TZ=Europe/Berlin
     labels:
