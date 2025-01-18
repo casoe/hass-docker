@@ -9,7 +9,7 @@ services:
       - "/opt/homeAssistant/hacs/huawei_solar:/config/custom_components/huawei_solar"
       - "/opt/homeAssistant/hacs/huawei_solar_pees/packages:/config/packages"
     devices:
-      - "/dev/serial/by-id/usb-Silicon_Labs_CP2104_USB_to_UART_Bridge_Controller_01A64D7F-if00-port0:/dev/ttyUSB0"
+      - "/dev/serial/by-id/usb-Silicon_Labs_CP2104_USB_to_UART_Bridge_Controller_01304F28-if00-port0:/dev/ttyUSB0"
     environment:
       - TZ=Europe/Berlin
     labels:
