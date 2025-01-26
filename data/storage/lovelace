@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "strategy": {
+        "type": "original-states",
+        "areas": {
+          "hidden": [],
+          "order": [
+            "arbeitszimmer",
+            "badezimmer",
+            "eingangsbereich",
+            "garten",
+            "gastezimmer",
+            "haukes_zimmer",
+            "keller",
+            "kuche",
+            "marits_zimmer",
+            "schlafzimmer",
+            "wohnzimmer",
+            "garagen",
+            "badezimmer_2_og"
+          ]
+        },
+        "hide_entities_without_area": false,
+        "hide_energy": false
+      }
+    }
+  }
+}

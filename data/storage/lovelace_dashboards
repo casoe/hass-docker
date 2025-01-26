@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_dashboards",
+  "data": {
+    "items": [
+      {
+        "id": "dashboard_garagen",
+        "show_in_sidebar": true,
+        "title": "Garagen & Garten",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-garagen",
+        "icon": "mdi:garage"
+      },
+      {
+        "id": "dashboard_photovoltaik",
+        "show_in_sidebar": true,
+        "title": "Photovoltaik",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-photovoltaik",
+        "icon": "mdi:solar-power-variant"
+      },
+      {
+        "id": "dashboard_etagen",
+        "show_in_sidebar": true,
+        "title": "Etagen im Haus",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-etagen",
+        "icon": "mdi:folder-home"
+      },
+      {
+        "id": "dashboard_system",
+        "show_in_sidebar": true,
+        "title": "System",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-system"
+      }
+    ]
+  }
+}

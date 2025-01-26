@@ -1,0 +1,19 @@
+  purge_keep_days: 31
+  include:
+    domains:
+      - binary_sensor
+      - climate
+      - sensor
+      - switch
+  exclude:
+    entities:
+      - sensor.last_boot
+      - sensor.date
+    entity_globs:
+      - sensor.weather_*
+      - sensor.persephone_*
+      - sensor.pi_hole_*
+      - sensor.sonos_*
+      - sensor.carstens_ipad_air_3_*
+      - sensor.carstens_iphone_12_*
+      - sensor.iphone_von_tina_*

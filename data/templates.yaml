@@ -1,0 +1,72 @@
+  - sensor:
+    - name: "PV Dach Leistung Ost"
+      unique_id: "pv_power_string_east"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+      state: >
+        {% from 'huawei_inverter.jinja' import calculate_power %}
+        {% set inpower =
+          (states('sensor.inverter_pv_1_strom') | float(0)) *
+          (states('sensor.inverter_pv_1_spannung') | float(0))
+        %}
+        {{ calculate_power(inpower) }}
+    - name: "PV Dach Leistung West"
+      unique_id: "pv_power_string_west"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+      state: >
+        {% from 'huawei_inverter.jinja' import calculate_power %}
+        {% set inpower =
+          (states('sensor.inverter_pv_2_strom') | float(0)) *
+          (states('sensor.inverter_pv_2_spannung') | float(0))
+        %}
+        {{ calculate_power(inpower) }}
+    - name: "PV Leistung Summe (Dach und BKW)"
+      unique_id: "pv_power_sum"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+      state: >-
+        {{ float(states('sensor.pv_dach_leistung_ost')) +
+           float(states('sensor.pv_dach_leistung_west')) +
+           float(states('sensor.balkonkraftwerk_energy_power')) }}
+    - name: "PV Dach Leistung Gesamt mit Effizienzverlust"
+      unique_id: "pv_power_total_with_efficiency_loss"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+      state: >-
+        {% from 'huawei_inverter.jinja' import calculate_power %}
+        {% set inpower = states('sensor.inverter_eingangsleistung')|float(0) %}
+        {{ calculate_power(inpower) }}
+    - name: "Verbrauch vom Haus (W)"
+      unique_id: "pv_consumption_house"
+      unit_of_measurement: "W"
+      device_class: power
+      state_class: measurement
+      state: >-
+        {{ float(states('sensor.pv_dach_leistung_ost')) +
+           float(states('sensor.pv_dach_leistung_west')) +
+           float(states('sensor.balkonkraftwerk_energy_power')) -
+           float(states('sensor.batteries_lade_entladeleistung')) +
+           float(states('sensor.smart_meter_summe_der_aktiven_momentanleistung')) }}
+    - name: "PV Dach Korrigierter Tagesertrag"
+      unique_id: "pv_energy_daily_corrected"
+      state: >
+        {% if has_value('sensor.inverter_tagesertrag') and
+              has_value('sensor.batteries_tagesentladung') and
+              has_value('sensor.batteries_tagesladung')
+        %}
+        {{ [((states('sensor.inverter_tagesertrag')     | float) -
+            (states('sensor.batteries_tagesentladung') | float) +
+            (states('sensor.batteries_tagesladung')    | float)) |float(0), 0.0 ] | max }}
+        {% else %}
+        {{ None }}
+        {% endif %}
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: 'kWh'
+      availability: >
+        {{ has_value('sensor.inverter_tagesertrag') }}

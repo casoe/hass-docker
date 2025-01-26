@@ -1,0 +1,85 @@
+homeassistant:
+  customize: !include customize.yaml
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+template: !include templates.yaml
+recorder: !include recorder.yaml
+
+
+cover:
+  - platform: template
+    covers:
+      garage_door:
+        device_class: garage
+        friendly_name: "Tor Tina"
+        value_template: >-
+          {% if is_state('binary_sensor.garagentor_tina_input','on') %}
+            Closed
+          {% else %}
+            Open
+          {% endif %}
+        open_cover:
+          service: switch.turn_on
+          data:
+            entity_id: switch.garagentor_tina
+        close_cover:
+          service: switch.turn_on
+          data:
+            entity_id: switch.garagentor_tina
+        icon_template: >-
+          {% if is_state('binary_sensor.garagentor_tina_input','on') %}
+            mdi:garage
+          {% else %}
+            mdi:garage-open
+          {% endif %}
+
+
+      garage_door_carsten:
+        device_class: garage
+        friendly_name: "Tor Carsten"
+        value_template: >-
+          {% if is_state('binary_sensor.garagentor_carsten_input','on') %}
+            Closed
+          {% else %}
+            Open
+          {% endif %}
+        open_cover:
+          service: switch.turn_on
+          data:
+            entity_id: switch.garagentor_carsten
+        close_cover:
+          service: switch.turn_on
+          data:
+            entity_id: switch.garagentor_carsten
+        icon_template: >-
+          {% if is_state('binary_sensor.garagentor_carsten_input','on') %}
+            mdi:garage
+          {% else %}
+            mdi:garage-open
+          {% endif %}
+
+
+notify:
+  - name: signal_carsten
+    platform: signal_messenger
+    url: "http://127.0.0.1:8080" # the URL where the Signal Messenger REST API is listening
+    number: "+491743137628" # the sender number
+    recipients: # one or more recipients
+      - "+4915152657436"
+
+  - name: signal_group
+    platform: signal_messenger
+    url: "http://127.0.0.1:8080" # the URL where the Signal Messenger REST API is listening
+    number: "+491743137628" # the sender number
+    recipients: # one or more recipients
+      - "group.WkhUMjZiamhUdzZjQ3JwL3I4MFZWTHl4bVl5SC9jbTZDTldQNlA0NFBlbz0="
+

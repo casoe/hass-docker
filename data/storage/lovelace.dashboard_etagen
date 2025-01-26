@@ -1,0 +1,787 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_etagen",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Keller",
+          "type": "sections",
+          "max_columns": 4,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Waschen und Trocknen",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "markdown",
+                  "content": "<ha-icon icon=\"mdi:washing-machine\"> </ha-icon> Status der Waschmaschine {% if is_state('input_select.status_waschine', 'running') %} <ha-alert alert-type=\"warning\">Gestartet</ha-alert> {% else %} <ha-alert alert-type=\"success\">Fertig</ha-alert>{% endif %}",
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.waschmaschine",
+                      "name": "Schaltsteckdose"
+                    },
+                    {
+                      "entity": "timer.status_waschmaschine_timer",
+                      "name": "Timer (3h)"
+                    },
+                    {
+                      "entity": "sensor.status_waschmaschine_zahler",
+                      "name": "Energieverbrauch"
+                    }
+                  ],
+                  "title": "Letzter Waschgang"
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.waschmaschine_energy_power",
+                  "detail": 1,
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "<ha-icon icon=\"mdi:washing-machine\"></ha-icon> Status des Trockners {% if is_state('input_select.status_trockner', 'running') %} <ha-alert alert-type=\"warning\">Gestartet</ha-alert> {% else %} <ha-alert alert-type=\"success\">Fertig</ha-alert>{% endif %}",
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.trockner",
+                      "name": "Schaltsteckdose"
+                    },
+                    {
+                      "entity": "timer.status_trockner_timer",
+                      "name": "Timer (2,5h)"
+                    },
+                    {
+                      "entity": "sensor.status_trockner_zahler",
+                      "name": "Energieverbrauch"
+                    }
+                  ],
+                  "title": "Letzte Trocknung"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Hebepumpe",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entity",
+                  "entity": "binary_sensor.shellyflood_c4d8d500b06b_flood",
+                  "name": "Wassersensor"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.shellyflood_c4d8d500b06b_battery",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  },
+                  "name": "Shelly Flood Batterie",
+                  "show_entity_picture": false,
+                  "vertical": true,
+                  "hide_state": false
+                },
+                {
+                  "type": "heading",
+                  "heading": "Pi-Hole",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.pi_hole",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "show_state": true
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.pi_hole_werbungsanteil_heute_blockiert",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "needle": true,
+                  "name": "Werbung heute blockiert",
+                  "severity": {
+                    "green": 20,
+                    "yellow": 0,
+                    "red": 0
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "Link to [Pi-Hole](http://192.168.2.6/admin/index.php)"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Synology DS418play",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.192_168_2_7",
+                      "name": "Verbindung (Ping)",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.persephone_temperatur",
+                      "name": "Temperatur"
+                    },
+                    {
+                      "entity": "button.persephone_reboot",
+                      "name": "Reboot"
+                    },
+                    {
+                      "entity": "button.persephone_shutdown",
+                      "name": "Shutdown"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "button.wake_on_lan_00_11_32_a8_58_2a",
+                      "name": "Wake on LAN"
+                    }
+                  ]
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.synology_power",
+                  "detail": 1,
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "type": "markdown",
+                  "content": "Link to [Synology](http://192.168.2.7:5000)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "EG",
+          "path": "eg",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "show_current": true,
+                  "show_forecast": true,
+                  "type": "weather-forecast",
+                  "entity": "weather.forecast_home",
+                  "forecast_type": "daily",
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "heading": "Eingangsbereich",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "lock.aqara_smart_lock_u200",
+                  "show_state": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.aqara_smart_lock_u200_batterie",
+                  "name": "Smart Lock Batterie",
+                  "vertical": true
+                },
+                {
+                  "type": "light",
+                  "entity": "light.eingangsbereich_1",
+                  "grid_options": {
+                    "columns": 5,
+                    "rows": 3
+                  }
+                }
+              ],
+              "column_span": 1
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Wohnzimmer",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.fernseher"
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.fernseher_power",
+                  "detail": 2,
+                  "name": "Verbrauch"
+                },
+                {
+                  "type": "light",
+                  "entity": "light.wohnzimmer_1",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.wohnzimmer_2",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.wohnzimmer_3",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.switch_wohnzimmer_batterie",
+                  "name": "HUE-Fernbedienung",
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.entertainment_area",
+                      "name": "Ambilight+HUE"
+                    }
+                  ]
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.philips_58pus8505_2"
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.wohnzimmer"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Küche",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "markdown",
+                  "content": "<ha-icon icon=\"mdi:dishwasher\"></ha-icon> Status der Spülmaschine {% if is_state('input_select.status_spulmaschine', 'running') %} <ha-alert alert-type=\"warning\">Gestartet</ha-alert> {% else %} <ha-alert alert-type=\"success\">Fertig</ha-alert>{% endif %}"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.spulmaschine",
+                      "name": "Schaltsteckdose"
+                    },
+                    {
+                      "entity": "timer.status_spulmaschine_timer",
+                      "name": "Timer (1,5h)"
+                    },
+                    {
+                      "entity": "sensor.status_spulmaschine_zahler",
+                      "name": "Energieverbrauch"
+                    }
+                  ],
+                  "title": "Letzter Spülgang"
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.spulmaschine_energy_power",
+                  "detail": 1,
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "number.kuhl_gefrier_kombination_kuhlschranktemperatur",
+                      "name": "Kühlschrank"
+                    },
+                    {
+                      "entity": "number.kuhl_gefrier_kombination_gefrierschranktemperatur",
+                      "name": "Gefrierfach"
+                    }
+                  ],
+                  "state_color": false
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.kuhlschrank_kuche_energy_power",
+                  "detail": 1,
+                  "name": "Kühlschrank ENERGY Power",
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.echo_dot_internet_access",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  },
+                  "name": "Echo Dot Internet",
+                  "show_state": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "1. OG",
+          "path": "1-og",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Arbeitszimmer",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_arbeitszimmer",
+                  "show_current_as_primary": false,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": " "
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.thermostat_arbeitszimmer_battery",
+                  "name": "TRV Batterie",
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.computer_peripherie"
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.computer_peripherie_energy_power",
+                  "detail": 1
+                },
+                {
+                  "type": "light",
+                  "entity": "light.arbeitszimmer_1",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.arbeitszimmer_2",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.arbeitszimmer_3",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.switch_arbeitszimmer_batterie",
+                  "grid_options": {
+                    "rows": 1,
+                    "columns": "full"
+                  },
+                  "name": "HUE-Fernbedienung"
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.homepod_mini"
+                },
+                {
+                  "type": "entity",
+                  "entity": "sensor.canon_mf650c_series",
+                  "name": "Canon MF657Cdw",
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.canon_mf650c_series_canon_cartridge_067_black_toner",
+                      "name": "Black Toner",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "sensor.canon_mf650c_series_canon_cartridge_067_cyan_toner",
+                      "name": "Cyan Toner",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "sensor.canon_mf650c_series_canon_cartridge_067_magenta_to",
+                      "name": "Magenta Toner",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "sensor.canon_mf650c_series_canon_cartridge_067_yellow_ton",
+                      "name": "Yellow Toner",
+                      "secondary_info": "none"
+                    }
+                  ],
+                  "state_color": true,
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 4
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Marit's Zimmer",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_marit_s_zimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": " "
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.thermostat_marit_s_zimmer_battery",
+                  "name": "TRV Batterie",
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.marit_1",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.switch_marit_batterie",
+                  "name": "HUE-Fernbedienung",
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.sonosone_bei_marit"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.sonos_marit_internet_access",
+                  "name": "Sonos Internet",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  },
+                  "show_state": true
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Schlafzimmer",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_schlafzimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": " "
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.thermostat_schlafzimmer_battery",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "TRV Batterie",
+                  "vertical": true
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "update.fritzbox7530ax_fritz_os",
+                      "name": "FRITZ!OS",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "sensor.fritzbox7530ax_externe_ip",
+                      "name": "Externe IP"
+                    },
+                    {
+                      "entity": "binary_sensor.fritzbox7530ax_wan_status",
+                      "name": "WAN-Status"
+                    },
+                    {
+                      "entity": "sensor.fritzbox7530ax_maximaler_download_durchsatz_der_verbindung",
+                      "name": "Download"
+                    },
+                    {
+                      "entity": "sensor.fritzbox7530ax_maximaler_upload_durchsatz_der_verbindung",
+                      "name": "Upload"
+                    },
+                    {
+                      "entity": "button.fritzbox7530ax_neu_starten",
+                      "name": "Neu starten"
+                    }
+                  ]
+                },
+                {
+                  "type": "entity",
+                  "entity": "device_tracker.hue_bridge",
+                  "name": "HUE-Bridge",
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 2
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Badezimmer",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_badezimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": " "
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.thermostat_badezimmer_battery",
+                  "name": "TRV Batterie",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "vertical": true,
+                  "show_entity_picture": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "2. OG",
+          "path": "2-og",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Hauke's Zimmer",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_hauke_s_zimmer",
+                  "name": " ",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.thermostat_hauke_s_zimmer_battery",
+                  "name": "TRV Batterie",
+                  "vertical": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.sonosone_bei_hauke"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.sonos_hauke_internet_access",
+                  "name": "Sonos Internet",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  },
+                  "show_state": true
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Heizungsraum",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.umwalzpumpe"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

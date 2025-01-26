@@ -1,0 +1,449 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_system",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Monitoring",
+          "type": "sections",
+          "max_columns": 4,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:raspberry-pi",
+                  "heading": "Raspberry Pi 5 8GB",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.system_monitor_prozessornutzung",
+                  "name": "CPU",
+                  "grid_options": {
+                    "rows": 3,
+                    "columns": 6
+                  },
+                  "needle": true,
+                  "severity": {
+                    "green": 0,
+                    "yellow": 33,
+                    "red": 66
+                  }
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.system_monitor_arbeitsspeicherauslastung",
+                  "name": "RAM",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "needle": true,
+                  "severity": {
+                    "green": 0,
+                    "yellow": 33,
+                    "red": 66
+                  }
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.system_monitor_massenspeicher_auslastung",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "needle": true,
+                  "severity": {
+                    "green": 0,
+                    "yellow": 33,
+                    "red": 66
+                  },
+                  "name": "SSD"
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.system_monitor_prozessornutzung"
+                    }
+                  ],
+                  "min_y_axis": 0,
+                  "max_y_axis": 100,
+                  "fit_y_data": false,
+                  "grid_options": {
+                    "rows": 4
+                  }
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.system_monitor_arbeitsspeicherauslastung"
+                    }
+                  ],
+                  "min_y_axis": 0,
+                  "max_y_axis": 100,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 4
+                  }
+                }
+              ],
+              "column_span": 1
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Batterien",
+                  "heading_style": "title",
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 1
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.aqara_smart_lock_u200_batterie",
+                      "name": "Aqara Smart Lock U200",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.shellyflood_c4d8d500b06b_battery",
+                      "name": "Shelly Flood",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.switch_arbeitszimmer_batterie",
+                      "name": "HUE-Switch Arbeitszimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.switch_marit_batterie",
+                      "name": "HUE-Switch Marit's Zimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.switch_wohnzimmer_batterie",
+                      "name": "HUE-Switch Wohnzimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_arbeitszimmer_battery",
+                      "name": "Shelly TRV Arbeitszimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_badezimmer_battery",
+                      "name": "Shelly TRV Badezimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_hauke_s_zimmer_battery",
+                      "name": "Shelly TRV Hauke's Zimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_marit_s_zimmer_battery",
+                      "name": "Shelly TRV Marit's Zimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_schlafzimmer_battery",
+                      "name": "Shelly TRV Schlafzimmer",
+                      "secondary_info": "last-updated"
+                    }
+                  ],
+                  "state_color": true
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Schalter",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.aussensteckdosen_switch_0",
+                      "secondary_info": "last-updated",
+                      "name": "Außensteckdosen "
+                    },
+                    {
+                      "entity": "switch.computer_peripherie",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.e_ladekabel",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.fernseher",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.garagentor_carsten",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.garagentor_tina",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.kuhlschrank_keller",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.kuhlschrank_kuche",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.spulmaschine",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.synology",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.testgerat",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.trockner",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.umwalzpumpe",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "switch.waschmaschine",
+                      "secondary_info": "last-updated"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Temperatur",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.shellyflood_c4d8d500b06b_temperature",
+                      "name": "Shelly Flood",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_arbeitszimmer_temperature",
+                      "name": "Shelly TRV Arbeitszimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_badezimmer_temperature",
+                      "name": "Shelly TRV Badezimmer (1. OG)",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_hauke_s_zimmer_temperature",
+                      "name": "Shelly TRV Hauke's Zimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_marit_s_zimmer_temperature",
+                      "name": "Shelly TRV Marit's Zimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_schlafzimmer_temperature",
+                      "name": "Shelly TRV Schlafzimmer",
+                      "secondary_info": "last-updated"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "Urlaub",
+          "path": "urlaub",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "input_boolean.urlaubsmodus_heizung",
+                  "show_state": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Heizung Thermostate Urlaubsmodus"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "input_boolean.urlaubsmodus_bierkuhlschrank",
+                  "name": "Bierkühlschrank Urlaubsmodus",
+                  "show_state": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "input_boolean.urlaubsmodus_umwalzpumpe",
+                  "show_state": true,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Umwälzpumpe Urlaubsmodus"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Heizung 1. OG",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_arbeitszimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Arbeitszimmer"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_schlafzimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Schlafzimmer"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_marit_s_zimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Marits Zimmer"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_badezimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Badezimmer 1. OG"
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Heizung 2. OG",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_hauke_s_zimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Haukes Zimmer"
+                }
+              ],
+              "column_span": 2
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "Test",
+          "path": "test",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.testgerat"
+                },
+                {
+                  "graph": "none",
+                  "type": "sensor",
+                  "entity": "sensor.testgerat_energy_power",
+                  "detail": 1,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "automation.testgerat_aus_3_1min_10w",
+                  "vertical": true,
+                  "hide_state": false,
+                  "show_entity_picture": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

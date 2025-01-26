@@ -1,0 +1,429 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_photovoltaik",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "type": "sections",
+          "path": "",
+          "cards": [],
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Power Flow Card",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "custom:power-flow-card-plus",
+                  "entities": {
+                    "battery": {
+                      "entity": "sensor.batteries_lade_entladeleistung",
+                      "state_of_charge": "sensor.batteries_batterieladung",
+                      "show_state_of_charge": true,
+                      "invert_state": true
+                    },
+                    "grid": {
+                      "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung",
+                      "secondary_info": {},
+                      "color_value": false,
+                      "display_zero_tolerance": 10
+                    },
+                    "solar": {
+                      "entity": "sensor.pv_dach_leistung_summe",
+                      "display_zero_state": true,
+                      "secondary_info": {},
+                      "use_metadata": false
+                    },
+                    "home": {
+                      "secondary_info": {},
+                      "entity": "sensor.verbrauch_vom_haus",
+                      "override_state": true,
+                      "name": "Haus",
+                      "icon": ""
+                    },
+                    "individual": [
+                      {
+                        "entity": "sensor.e_ladekabel_energy_power",
+                        "secondary_info": {
+                          "entity": "sensor.e_ladekabel_energy_today",
+                          "decimals": 2,
+                          "unit_of_measurement": "kWh",
+                          "display_zero": false
+                        },
+                        "name": "E-Ladekabel",
+                        "display_zero": true,
+                        "display_zero_state": true,
+                        "icon": "mdi:car",
+                        "calculate_flow_rate": false,
+                        "decimals": 0
+                      }
+                    ],
+                    "fossil_fuel_percentage": {
+                      "secondary_info": {}
+                    }
+                  },
+                  "clickable_entities": true,
+                  "display_zero_lines": {
+                    "mode": "hide",
+                    "transparency": 50,
+                    "grey_color": [
+                      189,
+                      189,
+                      189
+                    ]
+                  },
+                  "use_new_flow_rate_model": true,
+                  "w_decimals": 0,
+                  "kw_decimals": 1,
+                  "min_flow_rate": 0.75,
+                  "max_flow_rate": 6,
+                  "max_expected_power": 2000,
+                  "min_expected_power": 0.01,
+                  "watt_threshold": 1000,
+                  "transparency_zero_lines": 0,
+                  "disable_dots": false,
+                  "dashboard_link": "/energy"
+                },
+                {
+                  "type": "heading",
+                  "heading": "Batterie",
+                  "heading_style": "title"
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.batteries_batterieladung",
+                  "detail": 1,
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Leistungswerte",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.pv_dach_leistung_ost",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.pv_dach_leistung_west",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.balkonkraftwerk_energy_power",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.batteries_lade_entladeleistung",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung",
+                      "secondary_info": "last-updated"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.verbrauch_vom_haus",
+                      "secondary_info": "last-updated"
+                    }
+                  ],
+                  "state_color": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.pv_dach_leistung_summe"
+                    },
+                    {
+                      "entity": "sensor.pv_dach_leistung_gesamt",
+                      "secondary_info": "last-updated",
+                      "name": "PV Leistung Inverter mit Verlust"
+                    },
+                    {
+                      "entity": "sensor.power_meter_wirkleistung",
+                      "secondary_info": "last-updated"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Verbraucher",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.fernseher_power",
+                      "name": "Fernseher"
+                    },
+                    {
+                      "entity": "sensor.computer_peripherie_energy_power",
+                      "name": "Computer"
+                    },
+                    {
+                      "entity": "sensor.kuhlschrank_keller_energy_power",
+                      "name": "Kühlschrank Keller"
+                    },
+                    {
+                      "entity": "sensor.kuhlschrank_kuche_energy_power",
+                      "name": "Kühlschrank Küche"
+                    },
+                    {
+                      "entity": "sensor.waschmaschine_energy_power",
+                      "name": "Waschmaschine"
+                    },
+                    {
+                      "entity": "sensor.trockner_energy_power",
+                      "name": "Trockner"
+                    },
+                    {
+                      "entity": "sensor.spulmaschine_energy_power",
+                      "name": "Spülmaschine"
+                    },
+                    {
+                      "entity": "sensor.aussensteckdosen_switch_0_power",
+                      "name": "Außensteckdosen"
+                    },
+                    {
+                      "entity": "sensor.synology_power",
+                      "name": "Synology NAS"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Erträge/Verbrauch",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.pv_dach_korrigierter_tagesertrag"
+                    },
+                    {
+                      "entity": "sensor.balkonkraftwerk_energy_today"
+                    },
+                    {
+                      "entity": "sensor.verbrauch_vom_haus_tag_kwh"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Stromzähler",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.netzbezug_tag"
+                    },
+                    {
+                      "entity": "sensor.netzeinspeisung_tag"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Batterieladung/-entladung",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.batteries_tagesladung",
+                      "name": "Tagesladung"
+                    },
+                    {
+                      "entity": "sensor.batteries_tagesentladung",
+                      "name": "Tagesentladung"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "max_columns": 4,
+          "title": "Überblick"
+        },
+        {
+          "title": "Entitäten",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                "switch.inverter_inverter_ein_aus",
+                "number.inverter_power_derating",
+                "sensor.inverter_alarme",
+                "sensor.inverter_ausschaltzeit",
+                "sensor.inverter_dsp_datenerfassung",
+                "sensor.inverter_effizienz",
+                "sensor.inverter_eingangsleistung",
+                "sensor.inverter_geratestatus",
+                "sensor.inverter_gesamtenergieertrag",
+                "sensor.inverter_hourly_yield",
+                "sensor.inverter_interne_temperatur",
+                "sensor.inverter_netzunabhangigkeitsschalter",
+                "sensor.inverter_netzunabhangigkeitsstatus",
+                "sensor.inverter_pv_1_spannung",
+                "sensor.inverter_pv_1_strom",
+                "sensor.inverter_pv_2_spannung",
+                "sensor.inverter_pv_2_strom",
+                "sensor.inverter_pv_verbindungsstatus",
+                "sensor.inverter_sperrstatus",
+                "sensor.inverter_startzeit",
+                "sensor.inverter_tages_wirkleistungsspitze",
+                "sensor.inverter_tagesertrag",
+                "sensor.inverter_total_dc_input_energy",
+                "sensor.inverter_wechselrichterstatus",
+                "sensor.inverter_wirkleistung"
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "select.batteries_betriebsmodus",
+                "number.batteries_entlade_ende_ladestand",
+                "select.batteries_kapazitatsregelungsmodus",
+                "number.batteries_ladeende_ladestand",
+                "switch.batteries_laden_aus_dem_netz",
+                "number.batteries_maximale_entladeleistung",
+                "number.batteries_maximale_ladeleistung",
+                "number.batteries_maximale_netz_ladeleistung",
+                "number.batteries_netz_ladeabschalt_ladestand",
+                "number.batteries_peak_shaving_ladestand",
+                "select.batteries_verwendung_uberschussiger_pv_energie_in_tou",
+                "sensor.batteries_batterieladung",
+                "sensor.batteries_busspannung",
+                "sensor.batteries_busstrom",
+                "sensor.batteries_feste_ladezeiten",
+                "sensor.batteries_forcible_charge",
+                "sensor.batteries_gesamtentladung",
+                "sensor.batteries_gesamtladung",
+                "sensor.batteries_kapazitatsregelungsperioden",
+                "sensor.batteries_lade_entladeleistung",
+                "sensor.batteries_status",
+                "sensor.batteries_tagesentladung",
+                "sensor.batteries_tagesladung",
+                "sensor.batteries_zeiten_der_nutzungsabhangigen_ladung_und_entladung"
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.power_meter_exportierte_energie",
+                "sensor.power_meter_frequenz",
+                "sensor.power_meter_leistungsfaktor",
+                "sensor.power_meter_phase_a_wirkleistung",
+                "sensor.power_meter_phase_b_wirkleistung",
+                "sensor.power_meter_phase_c_wirkleistung",
+                "sensor.power_meter_verbrauch",
+                "sensor.power_meter_wirkleistung"
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.pv_dach_leistung_ost"
+                },
+                {
+                  "entity": "sensor.pv_dach_leistung_west"
+                },
+                {
+                  "entity": "sensor.pv_dach_leistung_gesamt"
+                },
+                {
+                  "entity": "sensor.pv_dach_korrigierter_tagesertrag"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.smart_meter_elektrizitats_id",
+                  "name": "Elektrizitäts-ID"
+                },
+                {
+                  "entity": "sensor.smart_meter_l1_aktive_momentanleistung",
+                  "name": "L1 aktive Momentanleistung"
+                },
+                {
+                  "entity": "sensor.smart_meter_l1_aktive_momentanspannung",
+                  "name": "L1 aktive Momentanspannung"
+                },
+                {
+                  "entity": "sensor.smart_meter_l2_aktive_momentanleistung",
+                  "name": "L2 aktive Momentanleistung"
+                },
+                {
+                  "entity": "sensor.smart_meter_l2_aktive_momentanspannung",
+                  "name": "L2 aktive Momentanspannung"
+                },
+                {
+                  "entity": "sensor.smart_meter_l3_aktive_momentanleistung",
+                  "name": "L3 aktive Momentanleistung"
+                },
+                {
+                  "entity": "sensor.smart_meter_l3_aktive_momentanspannung",
+                  "name": "L3 aktive Momentanspannung"
+                },
+                "sensor.smart_meter_positive_wirkenergie_insgesamt",
+                "sensor.smart_meter_negative_wirkenergie_insgesamt",
+                {
+                  "entity": "sensor.smart_meter_positive_wirkenergie_im_tarif_t1",
+                  "name": "Positive Wirkenergie im Tarif T1"
+                },
+                {
+                  "entity": "sensor.smart_meter_positive_wirkenergie_im_tarif_t2",
+                  "name": "Positive Wirkenergie im Tarif T2"
+                },
+                {
+                  "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung",
+                  "name": "Summe der aktiven Momentanleistung"
+                }
+              ],
+              "title": "Smart Meter"
+            }
+          ],
+          "badges": [],
+          "type": "masonry"
+        }
+      ]
+    }
+  }
+}

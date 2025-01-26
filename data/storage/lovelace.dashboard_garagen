@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_garagen",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Garagen",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Torsteuerung",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "cover.garage_door",
+                  "name": "Garagentor Tina",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "cover.garage_door_carsten",
+                  "name": "Garagentor Carsten",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "cover.garage_door_carsten",
+                      "name": "Garagentor Carsten"
+                    },
+                    {
+                      "entity": "cover.garage_door",
+                      "name": "Garagentor Tina"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Lademanagement",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.e_ladekabel",
+                  "name": "E-Ladekabel"
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.e_ladekabel_energy_power",
+                  "detail": 1,
+                  "name": "Steckdose"
+                },
+                {
+                  "type": "custom:power-flow-card-plus",
+                  "entities": {
+                    "battery": {
+                      "entity": "",
+                      "state_of_charge": "sensor.carstens_iphone_12_battery_level"
+                    },
+                    "grid": {
+                      "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung"
+                    },
+                    "home": {
+                      "secondary_info": {}
+                    },
+                    "individual": []
+                  },
+                  "clickable_entities": true,
+                  "display_zero_lines": true,
+                  "use_new_flow_rate_model": true,
+                  "w_decimals": 0,
+                  "kw_decimals": 1,
+                  "min_flow_rate": 0.75,
+                  "max_flow_rate": 6,
+                  "max_expected_power": 2000,
+                  "min_expected_power": 0.01,
+                  "watt_threshold": 1000,
+                  "transparency_zero_lines": 0,
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 2
+                  }
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "show_state": true,
+                  "type": "glance",
+                  "entities": [
+                    {
+                      "entity": "sensor.pv_vorhersage_heute"
+                    },
+                    {
+                      "entity": "sensor.e_ladekabel_energy_power"
+                    },
+                    {
+                      "entity": "sensor.e_ladekabel_energy_today"
+                    }
+                  ],
+                  "state_color": false
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.e_ladekabel_energy_power"
+                    }
+                  ],
+                  "min_y_axis": 0,
+                  "max_y_axis": 2300,
+                  "fit_y_data": true,
+                  "hours_to_show": 12
+                }
+              ]
+            }
+          ],
+          "badges": [],
+          "cards": [],
+          "type": "sections",
+          "max_columns": 4
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "Garten",
+          "path": "garten",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Garten",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "switch.aussensteckdosen_switch_0",
+                  "name": "Außensteckdosen (u.a. Pool)",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.aussensteckdosen_switch_0_power",
+                  "detail": 1,
+                  "name": "Außensteckdosen",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  }
+                },
+                {
+                  "type": "light",
+                  "entity": "light.garten_1",
+                  "name": "Garten Südseite",
+                  "grid_options": {
+                    "columns": 4,
+                    "rows": 3
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

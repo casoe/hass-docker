@@ -1,0 +1,609 @@
+- id: '1736720540458'
+  alias: Computer aus (1min < 8W)
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.computer_peripherie
+    from: 'off'
+    to: 'on'
+    id: computer_peripherie plug goes on
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    trigger: state
+  - entity_id:
+    - sensor.computer_peripherie_energy_power
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    below: 8
+    id: consumption below 8w
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - consumption below 8w
+      sequence:
+      - data: {}
+        target:
+          entity_id: switch.computer_peripherie
+        action: switch.turn_off
+    - conditions:
+      - condition: trigger
+        id: computer_peripherie plug goes on
+      sequence:
+      - if:
+        - condition: numeric_state
+          entity_id: sensor.computer_peripherie_energy_power
+          below: 8
+        then:
+        - data: {}
+          target:
+            entity_id: switch.computer_peripherie
+          action: switch.turn_off
+- id: '1736772321810'
+  alias: Fernseher aus (3min < 26W)
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.fernseher
+    from: 'off'
+    to: 'on'
+    id: fernseher plug goes on
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+    trigger: state
+  - entity_id:
+    - sensor.fernseher_power
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    below: 26
+    id: consumption below 26w
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - consumption below 26w
+      sequence:
+      - data: {}
+        target:
+          entity_id: switch.fernseher
+        action: switch.turn_off
+    - conditions:
+      - condition: trigger
+        id: fernseher plug goes on
+      sequence:
+      - if:
+        - condition: numeric_state
+          entity_id: sensor.fernseher_power
+          below: 26
+        then:
+        - data: {}
+          target:
+            entity_id: switch.fernseher
+          action: switch.turn_off
+- id: '1736869941466'
+  alias: Testgerät aus (1min < 10W)
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.testgerat
+    from: 'off'
+    to: 'on'
+    id: testgerat plug goes on
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    trigger: state
+  - entity_id:
+    - sensor.testgerat_energy_power
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    below: 10
+    id: consumption below 10w
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - consumption below 10w
+      sequence:
+      - data: {}
+        target:
+          entity_id: switch.testgerat
+        action: switch.turn_off
+    - conditions:
+      - condition: trigger
+        id: testgerat plug goes on
+      sequence:
+      - if:
+        - condition: numeric_state
+          entity_id: sensor.testgerat_energy_power
+          below: 10
+        then:
+        - data: {}
+          target:
+            entity_id: switch.testgerat
+          action: switch.turn_off
+- id: '1736886353728'
+  alias: Bierkühlschrank an gem. Zeitplan
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - schedule.bierkuhlschrank
+    to: 'on'
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.kuhlschrank_keller
+  mode: single
+- id: '1736886408714'
+  alias: Bierkühlschrank aus gem. Zeitplan
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - schedule.bierkuhlschrank
+    to: 'off'
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.kuhlschrank_keller
+  mode: single
+- id: '1736886713117'
+  alias: Bierkühlschrank aus um 22 Uhr wenn kein Zeitplan
+  description: ''
+  triggers:
+  - trigger: time
+    at: '22:00:00'
+  conditions:
+  - condition: state
+    entity_id: schedule.bierkuhlschrank
+    state: 'off'
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.kuhlschrank_keller
+  mode: single
+- id: '1736887644744'
+  alias: Umwälzpumpe an gem. Zeitplan
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - schedule.zeitplan_umwalpumpe_regular
+    to: 'on'
+  - trigger: state
+    entity_id:
+    - schedule.zeitplan_umwalzpumpe_minimal
+    to: 'on'
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.umwalzpumpe
+  mode: single
+- id: '1736887804625'
+  alias: Umwälzpumpe aus gem. Zeitplan
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - schedule.zeitplan_umwalpumpe_regular
+    to: 'off'
+  - trigger: state
+    entity_id:
+    - schedule.zeitplan_umwalzpumpe_minimal
+    to: 'off'
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.umwalzpumpe
+  mode: single
+- id: '1736888425441'
+  alias: Heizung Urlaubsmodus an
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.urlaubsmodus_heizung
+    to: 'on'
+  conditions: []
+  actions:
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: Holiday
+    target:
+      entity_id:
+      - climate.thermostat_arbeitszimmer
+      - climate.thermostat_badezimmer
+      - climate.thermostat_hauke_s_zimmer
+      - climate.thermostat_marit_s_zimmer
+      - climate.thermostat_schlafzimmer
+  mode: single
+- id: '1736888877220'
+  alias: Heizung Urlaubsmodus aus
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.urlaubsmodus_heizung
+    to: 'off'
+  conditions: []
+  actions:
+  - action: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: none
+    target:
+      entity_id: climate.thermostat_arbeitszimmer
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 20
+    target:
+      entity_id:
+      - climate.thermostat_arbeitszimmer
+      - climate.thermostat_badezimmer
+      - climate.thermostat_hauke_s_zimmer
+      - climate.thermostat_marit_s_zimmer
+  - action: climate.set_temperature
+    metadata: {}
+    data:
+      temperature: 18
+    target:
+      entity_id: climate.thermostat_schlafzimmer
+  mode: single
+- id: '1737061880855'
+  alias: Waschmaschine gestartet (1,5min > 8W)
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.waschmaschine_energy_power
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 30
+    above: 8
+  conditions:
+  - condition: state
+    entity_id: input_select.status_waschine
+    state: finished
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: Waschmaschine gestartet
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: running
+    target:
+      entity_id: input_select.status_waschine
+  - action: utility_meter.calibrate
+    metadata: {}
+    data:
+      value: '0.00'
+    target:
+      entity_id: sensor.status_waschmaschine_zahler
+  - action: timer.start
+    metadata: {}
+    data:
+      duration: 03:14:00
+    target:
+      entity_id: timer.status_waschmaschine_timer
+  mode: single
+- id: '1737062218614'
+  alias: Waschmaschine fertig (5min < 8W)
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.waschmaschine_energy_power
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    below: 8
+  conditions:
+  - condition: state
+    entity_id: input_select.status_waschine
+    state: running
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: 'Waschmaschine fertig (Verbrauch: {{states(''sensor.status_waschmaschine_zahler'')
+        }} kWh)'
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: finished
+    target:
+      entity_id: input_select.status_waschine
+  mode: single
+- id: '1737120567763'
+  alias: Trockner gestartet (60s > 200W)
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.trockner_energy_power
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    above: 200
+  conditions:
+  - condition: state
+    entity_id: input_select.status_trockner
+    state: finished
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: Trockner gestartet
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: running
+    target:
+      entity_id: input_select.status_trockner
+  - action: utility_meter.calibrate
+    metadata: {}
+    data:
+      value: '0.00'
+    target:
+      entity_id: sensor.status_trockner_zahler
+  - action: timer.start
+    metadata: {}
+    data:
+      duration: 02:25:00
+    target:
+      entity_id: timer.status_trockner_timer
+  mode: single
+- id: '1737120742796'
+  alias: Trockner fertig (5min < 500W)
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.trockner_energy_power
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    below: 500
+  conditions:
+  - condition: state
+    entity_id: input_select.status_trockner
+    state: running
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: 'Trockner fertig (Verbrauch: {{states(''sensor.status_trockner_zahler'')
+        }} kWh)'
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: finished
+    target:
+      entity_id: input_select.status_trockner
+  mode: single
+- id: '1737121028595'
+  alias: Spülmaschine gestartet (1min > 50W)
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.spulmaschine_energy_power
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    above: 50
+  conditions:
+  - condition: state
+    entity_id: input_select.status_spulmaschine
+    state: finished
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: Spülmaschine gestartet
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: running
+    target:
+      entity_id: input_select.status_spulmaschine
+  - action: utility_meter.calibrate
+    metadata: {}
+    data:
+      value: '0.00'
+    target:
+      entity_id: sensor.status_spulmaschine_zahler
+  - action: timer.start
+    metadata: {}
+    data:
+      duration: 01:30:00
+    target:
+      entity_id: timer.status_spulmaschine_timer
+  mode: single
+- id: '1737121277257'
+  alias: Spülmaschine fertig (15min < 10W)
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.spulmaschine_energy_power
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+    below: 10
+  conditions:
+  - condition: state
+    entity_id: input_select.status_spulmaschine
+    state: running
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: 'Spülmaschine gleich fertig (Verbrauch: {{states(''sensor.status_spulmaschine_zahler'')
+        }} kWh)'
+  - action: input_select.select_option
+    metadata: {}
+    data:
+      option: finished
+    target:
+      entity_id: input_select.status_spulmaschine
+  mode: single
+- id: '1737143662531'
+  alias: Warnung niedriger Batteriestand
+  description: ''
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      actions:
+      - action: notify.signal_group
+        metadata: {}
+        data:
+          message: 'Niedriger Batteriestand: {{sensors}}'
+      threshold: 20
+      exclude:
+        entity_id:
+        - sensor.carstens_ipad_air_3_battery_level
+        - sensor.carstens_iphone_12_battery_level
+        - sensor.iphone_von_tina_battery_level
+- id: '1737145134347'
+  alias: Warnung Gerät offline (5min)
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.aussensteckdosen_switch_0_power
+    - sensor.computer_peripherie_energy_power
+    - sensor.e_ladekabel_energy_power
+    - sensor.fernseher_power
+    - binary_sensor.garagentor_carsten_input
+    - binary_sensor.garagentor_tina_input
+    - sensor.kuhlschrank_keller_energy_power
+    - sensor.kuhlschrank_kuche_energy_power
+    - sensor.spulmaschine_energy_power
+    - sensor.synology_power
+    - sensor.testgerat_energy_power
+    - sensor.trockner_energy_power
+    - switch.umwalzpumpe
+    - sensor.waschmaschine_energy_power
+    to: unavailable
+    for:
+      minutes: 5
+    trigger: state
+  actions:
+  - action: notify.signal_carsten
+    data:
+      message: '{{ state_attr(trigger.to_state.entity_id, ''friendly_name'') }} ist
+        "unavailable" für mehr als 5 Minuten!
+
+        '
+  mode: parallel
+- id: '1737236137246'
+  alias: Huawei Solar inverter data polling
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    seconds: '20'
+  conditions: []
+  actions:
+  - action: homeassistant.update_entity
+    metadata: {}
+    data:
+      entity_id:
+      - sensor.batteries_batterieladung
+      - sensor.batteries_lade_entladeleistung
+      - sensor.power_meter_wirkleistung
+      - sensor.inverter_eingangsleistung
+      - sensor.inverter_wirkleistung
+  mode: parallel
+- id: '1737289581489'
+  alias: Warnung Garage Carsten noch geöffnet
+  description: ''
+  triggers:
+  - trigger: time
+    at: '21:00:00'
+  conditions:
+  - condition: state
+    entity_id: cover.garage_door_carsten
+    state: open
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: Garage Carsten noch geöffnet!
+  mode: single
+- id: '1737290087279'
+  alias: Warnung Garage Tina noch geöffnet
+  description: ''
+  triggers:
+  - trigger: time
+    at: '21:00:00'
+  conditions:
+  - condition: state
+    entity_id: cover.garage_door
+    state: open
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: Garage Tina noch göffnet!
+  mode: single
+- id: '1737290248588'
+  alias: Warnung Haustür nicht abgeschlossen
+  description: ''
+  triggers:
+  - trigger: time
+    at: '22:00:00'
+  conditions:
+  - condition: state
+    entity_id: lock.aqara_smart_lock_u200
+    state: unlocked
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: Haustür (Aqara Smart Lock) noch nicht abgeschlossen!
+  mode: single
