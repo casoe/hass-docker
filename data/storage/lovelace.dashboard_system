@@ -287,6 +287,103 @@
         {
           "type": "sections",
           "max_columns": 4,
+          "title": "Zähler",
+          "path": "zahler",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Stromzähler",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "markdown",
+                  "content": "<table width=100%> <tr><td align=left>Netzbezug </td><td align=right>{{ (states('sensor.smart_meter_positive_wirkenergie_insgesamt') | float(0) / 1000) | round(2) }} kWh </tr> <tr><td align=left>Netzeinspeisung </td><td align=right>{{ (states('sensor.smart_meter_negative_wirkenergie_insgesamt') | float(0) / 1000) | round(2) }} kWh</tr>"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.netzbezug_tag"
+                    },
+                    {
+                      "entity": "sensor.netzeinspeisung_tag"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Gaszähler (AI on the Edge)",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.gas_rate_per_digitalization_round"
+                    },
+                    {
+                      "entity": "binary_sensor.gas_problem"
+                    },
+                    {
+                      "entity": "sensor.gas_rate_per_time_unit"
+                    },
+                    {
+                      "entity": "sensor.gas_value"
+                    }
+                  ]
+                },
+                {
+                  "type": "markdown",
+                  "content": "Link to [Gas-Meter](http://192.168.2.21)"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Wasserzähler (AI on the Edge)",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.water_rate_per_digitalization_round"
+                    },
+                    {
+                      "entity": "binary_sensor.water_problem"
+                    },
+                    {
+                      "entity": "sensor.water_rate_per_time_unit"
+                    },
+                    {
+                      "entity": "sensor.water_value"
+                    }
+                  ]
+                },
+                {
+                  "type": "markdown",
+                  "content": "Link to [Water-Meter](http://192.168.2.20)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
           "title": "Urlaub",
           "path": "urlaub",
           "sections": [

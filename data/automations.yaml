@@ -69,7 +69,10 @@
     below: 26
     id: consumption below 26w
     trigger: numeric_state
-  conditions: []
+  conditions:
+  - condition: time
+    after: '21:00:00'
+    before: '18:00:00'
   actions:
   - choose:
     - conditions:
@@ -606,4 +609,16 @@
     metadata: {}
     data:
       message: Haustür (Aqara Smart Lock) noch nicht abgeschlossen!
+  mode: single
+- id: '1737996393816'
+  alias: Daily Backup
+  description: ''
+  triggers:
+  - trigger: time
+    at: 03:00:00
+  conditions: []
+  actions:
+  - action: backup.create
+    metadata: {}
+    data: {}
   mode: single

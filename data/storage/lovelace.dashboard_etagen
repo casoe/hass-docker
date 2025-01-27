@@ -78,6 +78,16 @@
                     }
                   ],
                   "title": "Letzte Trocknung"
+                },
+                {
+                  "graph": "line",
+                  "type": "sensor",
+                  "entity": "sensor.trockner_energy_power",
+                  "detail": 1,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 2
+                  }
                 }
               ]
             },
@@ -92,7 +102,8 @@
                 {
                   "type": "entity",
                   "entity": "binary_sensor.shellyflood_c4d8d500b06b_flood",
-                  "name": "Wassersensor"
+                  "name": "Wassersensor",
+                  "state_color": true
                 },
                 {
                   "type": "tile",

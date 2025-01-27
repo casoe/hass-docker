@@ -227,7 +227,16 @@
                   "type": "entities",
                   "entities": [
                     {
+                      "entity": "sensor.pv_vorhersage_heute_forecast_solar"
+                    },
+                    {
+                      "entity": "sensor.pv_vorhersage_heute_open_meteo"
+                    },
+                    {
                       "entity": "sensor.pv_dach_korrigierter_tagesertrag"
+                    },
+                    {
+                      "entity": "sensor.pv_dach_integration_tagesertrag"
                     },
                     {
                       "entity": "sensor.balkonkraftwerk_energy_today"
