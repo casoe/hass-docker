@@ -337,7 +337,8 @@
                       "entity": "sensor.gas_rate_per_time_unit"
                     },
                     {
-                      "entity": "sensor.gas_value"
+                      "entity": "sensor.gas_value",
+                      "secondary_info": "last-updated"
                     }
                   ]
                 },
@@ -369,7 +370,8 @@
                       "entity": "sensor.water_rate_per_time_unit"
                     },
                     {
-                      "entity": "sensor.water_value"
+                      "entity": "sensor.water_value",
+                      "secondary_info": "last-updated"
                     }
                   ]
                 },

@@ -59,9 +59,9 @@
               has_value('sensor.batteries_tagesentladung') and
               has_value('sensor.batteries_tagesladung')
         %}
-        {{ [((states('sensor.inverter_tagesertrag')     | float) -
-            (states('sensor.batteries_tagesentladung') | float) +
-            (states('sensor.batteries_tagesladung')    | float)) |float(0), 0.0 ] | max }}
+        {{ (states('sensor.inverter_tagesertrag')     | float) -
+           (states('sensor.batteries_tagesentladung') | float) +
+           (states('sensor.batteries_tagesladung')    | float) }}
         {% else %}
         {{ None }}
         {% endif %}

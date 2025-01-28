@@ -6,6 +6,126 @@
     "config": {
       "views": [
         {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "E-Laden",
+          "path": "e-laden",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Lademanagement",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "entity": "input_boolean.e_auto_laden",
+                  "show_state": true,
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "number.batteries_maximale_entladeleistung"
+                    },
+                    {
+                      "entity": "sensor.batteries_lade_entladeleistung"
+                    },
+                    {
+                      "entity": "timer.e_auto_timer"
+                    },
+                    {
+                      "entity": "sensor.e_auto_zahler"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Ladedaten",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.e_ladekabel"
+                    },
+                    {
+                      "entity": "sensor.e_ladekabel_energy_power"
+                    },
+                    {
+                      "entity": "sensor.e_ladekabel_energy_total"
+                    },
+                    {
+                      "entity": "sensor.e_ladekabel_esp32_temperature"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:power-flow-card-plus",
+                  "entities": {
+                    "battery": {
+                      "entity": "",
+                      "state_of_charge": "sensor.carstens_iphone_12_battery_level"
+                    },
+                    "grid": {
+                      "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung"
+                    },
+                    "home": {
+                      "secondary_info": {}
+                    },
+                    "individual": []
+                  },
+                  "clickable_entities": true,
+                  "display_zero_lines": true,
+                  "use_new_flow_rate_model": true,
+                  "w_decimals": 0,
+                  "kw_decimals": 1,
+                  "min_flow_rate": 0.75,
+                  "max_flow_rate": 6,
+                  "max_expected_power": 2000,
+                  "min_expected_power": 0.01,
+                  "watt_threshold": 1000,
+                  "transparency_zero_lines": 0,
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.e_ladekabel_energy_power"
+                    }
+                  ],
+                  "min_y_axis": 0,
+                  "max_y_axis": 2300,
+                  "fit_y_data": true,
+                  "hours_to_show": 12,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 4
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
           "title": "Garagen",
           "sections": [
             {
@@ -59,98 +179,8 @@
                   ]
                 }
               ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Lademanagement",
-                  "heading_style": "title"
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "entity": "switch.e_ladekabel",
-                  "name": "E-Ladekabel"
-                },
-                {
-                  "graph": "line",
-                  "type": "sensor",
-                  "entity": "sensor.e_ladekabel_energy_power",
-                  "detail": 1,
-                  "name": "Steckdose"
-                },
-                {
-                  "type": "custom:power-flow-card-plus",
-                  "entities": {
-                    "battery": {
-                      "entity": "",
-                      "state_of_charge": "sensor.carstens_iphone_12_battery_level"
-                    },
-                    "grid": {
-                      "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung"
-                    },
-                    "home": {
-                      "secondary_info": {}
-                    },
-                    "individual": []
-                  },
-                  "clickable_entities": true,
-                  "display_zero_lines": true,
-                  "use_new_flow_rate_model": true,
-                  "w_decimals": 0,
-                  "kw_decimals": 1,
-                  "min_flow_rate": 0.75,
-                  "max_flow_rate": 6,
-                  "max_expected_power": 2000,
-                  "min_expected_power": 0.01,
-                  "watt_threshold": 1000,
-                  "transparency_zero_lines": 0,
-                  "grid_options": {
-                    "columns": "full",
-                    "rows": 2
-                  }
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "show_state": true,
-                  "type": "glance",
-                  "entities": [
-                    {
-                      "entity": "sensor.e_ladekabel_energy_power"
-                    },
-                    {
-                      "entity": "sensor.e_ladekabel_energy_today"
-                    }
-                  ],
-                  "state_color": false
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "sensor.e_ladekabel_energy_power"
-                    }
-                  ],
-                  "min_y_axis": 0,
-                  "max_y_axis": 2300,
-                  "fit_y_data": true,
-                  "hours_to_show": 12
-                }
-              ]
             }
-          ],
-          "badges": [],
-          "cards": [],
-          "type": "sections",
-          "max_columns": 4
+          ]
         },
         {
           "type": "sections",

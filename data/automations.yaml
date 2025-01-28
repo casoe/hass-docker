@@ -349,8 +349,8 @@
   - action: notify.signal_group
     metadata: {}
     data:
-      message: 'Waschmaschine fertig (Verbrauch: {{states(''sensor.status_waschmaschine_zahler'')
-        }} kWh)'
+      message: 'Waschmaschine fertig (Verbrauch: {{states(''sensor.status_waschmaschine_zahler'')|round(2)}}
+        kWh)'
   - action: input_select.select_option
     metadata: {}
     data:
@@ -418,8 +418,8 @@
   - action: notify.signal_group
     metadata: {}
     data:
-      message: 'Trockner fertig (Verbrauch: {{states(''sensor.status_trockner_zahler'')
-        }} kWh)'
+      message: 'Trockner fertig (Verbrauch: {{ states(''sensor.status_trockner_zahler'')
+        | round(2) }} kWh)'
   - action: input_select.select_option
     metadata: {}
     data:
@@ -487,8 +487,8 @@
   - action: notify.signal_group
     metadata: {}
     data:
-      message: 'Spülmaschine gleich fertig (Verbrauch: {{states(''sensor.status_spulmaschine_zahler'')
-        }} kWh)'
+      message: 'Spülmaschine gleich fertig (Verbrauch: {{ states(''sensor.status_spulmaschine_zahler'')
+        | round(2) }} kWh)'
   - action: input_select.select_option
     metadata: {}
     data:
@@ -621,4 +621,74 @@
   - action: backup.create
     metadata: {}
     data: {}
+  mode: single
+- id: '1738096587023'
+  alias: E-Auto laden an
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.e_auto_laden
+    to: 'on'
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.e_ladekabel
+  - action: timer.start
+    metadata: {}
+    data:
+      duration: 07:00:00
+    target:
+      entity_id: timer.e_auto_timer
+  - action: utility_meter.calibrate
+    metadata: {}
+    data:
+      value: '0.00'
+    target:
+      entity_id: sensor.e_auto_zahler
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '300'
+    target:
+      entity_id: number.batteries_maximale_entladeleistung
+  mode: single
+- id: '1738097274716'
+  alias: E-Auto laden aus
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.e_auto_laden
+    to: 'off'
+  - trigger: state
+    entity_id:
+    - timer.e_auto_timer
+    to: idle
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.e_ladekabel
+  - action: timer.cancel
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.e_auto_timer
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '5000'
+    target:
+      entity_id: number.batteries_maximale_entladeleistung
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.e_auto_laden
   mode: single
