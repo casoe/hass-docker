@@ -14,6 +14,11 @@
               "type": "grid",
               "cards": [
                 {
+                  "type": "weather-forecast",
+                  "entity": "weather.forecast_home",
+                  "forecast_type": "daily"
+                },
+                {
                   "type": "heading",
                   "icon": "",
                   "heading": "Power Flow Card",
@@ -93,20 +98,6 @@
                   "dashboard_link": "/energy",
                   "watt_threshold": 100000,
                   "max_expected_power": 5000
-                },
-                {
-                  "type": "heading",
-                  "heading": "Batterie",
-                  "heading_style": "title"
-                },
-                {
-                  "graph": "line",
-                  "type": "sensor",
-                  "entity": "sensor.batteries_batterieladung",
-                  "detail": 1,
-                  "grid_options": {
-                    "columns": "full"
-                  }
                 }
               ]
             },
@@ -154,19 +145,71 @@
                   "state_color": false
                 },
                 {
+                  "type": "heading",
+                  "heading": "Erträge/Verbrauch",
+                  "heading_style": "title"
+                },
+                {
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.pv_dach_leistung_summe"
+                      "entity": "sensor.pv_vorhersage_heute_forecast_solar"
                     },
                     {
-                      "entity": "sensor.pv_dach_leistung_gesamt",
-                      "secondary_info": "last-updated",
-                      "name": "PV Leistung Inverter mit Verlust"
+                      "entity": "sensor.pv_vorhersage_heute_open_meteo"
                     },
                     {
-                      "entity": "sensor.power_meter_wirkleistung",
-                      "secondary_info": "last-updated"
+                      "entity": "sensor.pv_dach_korrigierter_tagesertrag"
+                    },
+                    {
+                      "entity": "sensor.pv_dach_tagesertrag_helfer"
+                    },
+                    {
+                      "entity": "sensor.balkonkraftwerk_energy_today"
+                    },
+                    {
+                      "entity": "sensor.verbrauch_vom_haus_tag_kwh"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Stromzähler",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.netzbezug_tag"
+                    },
+                    {
+                      "entity": "sensor.netzeinspeisung_tag"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Batterieladung/-entladung",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.batteries_tagesladung",
+                      "name": "Tagesladung"
+                    },
+                    {
+                      "entity": "sensor.batteries_tagesentladung",
+                      "name": "Tagesentladung"
                     }
                   ]
                 },
@@ -179,6 +222,19 @@
                 {
                   "type": "entities",
                   "entities": [
+                    {
+                      "entity": "switch.testgerat",
+                      "name": "Warmwasser (provisorisch)"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.testgerat_energy_power",
+                      "name": "Warmwasser (provisorisch)"
+                    },
                     {
                       "entity": "sensor.fernseher_power",
                       "name": "Fernseher"
@@ -214,75 +270,6 @@
                     {
                       "entity": "sensor.synology_power",
                       "name": "Synology NAS"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Erträge/Verbrauch",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.pv_vorhersage_heute_forecast_solar"
-                    },
-                    {
-                      "entity": "sensor.pv_vorhersage_heute_open_meteo"
-                    },
-                    {
-                      "entity": "sensor.pv_dach_korrigierter_tagesertrag"
-                    },
-                    {
-                      "entity": "sensor.pv_dach_integration_tagesertrag"
-                    },
-                    {
-                      "entity": "sensor.balkonkraftwerk_energy_today"
-                    },
-                    {
-                      "entity": "sensor.verbrauch_vom_haus_tag_kwh"
-                    }
-                  ]
-                },
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Stromzähler",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.netzbezug_tag"
-                    },
-                    {
-                      "entity": "sensor.netzeinspeisung_tag"
-                    }
-                  ]
-                },
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Batterieladung/-entladung",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.batteries_tagesladung",
-                      "name": "Tagesladung"
-                    },
-                    {
-                      "entity": "sensor.batteries_tagesentladung",
-                      "name": "Tagesentladung"
                     }
                   ]
                 }

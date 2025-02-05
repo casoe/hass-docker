@@ -36,8 +36,22 @@
                       "entity": "number.batteries_maximale_entladeleistung"
                     },
                     {
-                      "entity": "sensor.batteries_lade_entladeleistung"
+                      "entity": "sensor.batteries_batterieladung"
                     },
+                    {
+                      "entity": "sensor.batteries_lade_entladeleistung"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Aktueller/Letzer Ladevorgang",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
                     {
                       "entity": "timer.e_auto_timer"
                     },
@@ -45,6 +59,10 @@
                       "entity": "sensor.e_auto_zahler"
                     }
                   ]
+                },
+                {
+                  "type": "markdown",
+                  "content": "<table width=100%> <tr><td align=left><ha-icon icon=\"mdi:currency-eur\"></ha-icon> Ungefähre Kosten (0.35Ct/kWh) </td><td align=right> {{  '%.2f' | format((states('sensor.e_auto_zahler')) | float * 0.35 | round(2) ) }} € </tr> <tr>"
                 }
               ]
             },
@@ -65,6 +83,12 @@
                     },
                     {
                       "entity": "sensor.e_ladekabel_energy_power"
+                    },
+                    {
+                      "entity": "sensor.e_ladekabel_energy_voltage"
+                    },
+                    {
+                      "entity": "sensor.e_ladekabel_energy_current"
                     },
                     {
                       "entity": "sensor.e_ladekabel_energy_total"

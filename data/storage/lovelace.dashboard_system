@@ -162,6 +162,46 @@
                     }
                   ],
                   "state_color": true
+                },
+                {
+                  "type": "heading",
+                  "heading": "Temperaturen",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.shellyflood_c4d8d500b06b_temperature",
+                      "name": "Shelly Flood",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_arbeitszimmer_temperature",
+                      "name": "Shelly TRV Arbeitszimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_badezimmer_temperature",
+                      "name": "Shelly TRV Badezimmer (1. OG)",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_schlafzimmer_temperature",
+                      "name": "Shelly TRV Schlafzimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_marit_s_zimmer_temperature",
+                      "name": "Shelly TRV Marit's Zimmer",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.thermostat_hauke_s_zimmer_temperature",
+                      "name": "Shelly TRV Hauke's Zimmer",
+                      "secondary_info": "last-updated"
+                    }
+                  ]
                 }
               ]
             },
@@ -236,51 +276,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Temperatur",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.shellyflood_c4d8d500b06b_temperature",
-                      "name": "Shelly Flood",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.thermostat_arbeitszimmer_temperature",
-                      "name": "Shelly TRV Arbeitszimmer",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.thermostat_badezimmer_temperature",
-                      "name": "Shelly TRV Badezimmer (1. OG)",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.thermostat_hauke_s_zimmer_temperature",
-                      "name": "Shelly TRV Hauke's Zimmer",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.thermostat_marit_s_zimmer_temperature",
-                      "name": "Shelly TRV Marit's Zimmer",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.thermostat_schlafzimmer_temperature",
-                      "name": "Shelly TRV Schlafzimmer",
-                      "secondary_info": "last-updated"
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
@@ -310,6 +305,9 @@
                     },
                     {
                       "entity": "sensor.netzeinspeisung_tag"
+                    },
+                    {
+                      "entity": "sensor.smart_meter_elektrizitats_id"
                     }
                   ]
                 }
@@ -408,6 +406,66 @@
                   "name": "Heizung Thermostate Urlaubsmodus"
                 },
                 {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Attribute Thermostate",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "markdown",
+                  "content": "<table width=100%> \n\t<tr>\n\t\t<td align=left> Arbeitszimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_arbeitszimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_arbeitszimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Badezimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_badezimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_badezimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Schlafzimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_schlafzimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_schlafzimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Marit's Zimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_marit_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_marit_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Hauke's Zimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_hauke_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_hauke_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_battery')  }} %</td>\n\t</tr>"
+                },
+                {
+                  "type": "custom:mini-graph-card",
+                  "name": "Temperaturen 24h",
+                  "smoothing": true,
+                  "hours_to_show": 24,
+                  "points_per_hour": 6,
+                  "update_interval": 60,
+                  "line_width": 1,
+                  "animate": false,
+                  "height": 200,
+                  "entities": [
+                    {
+                      "entity": "climate.thermostat_arbeitszimmer",
+                      "name": "Arbeitszimmer",
+                      "attribute": "current_temperature"
+                    },
+                    {
+                      "entity": "climate.thermostat_badezimmer",
+                      "name": "Badezimmer",
+                      "attribute": "current_temperature"
+                    },
+                    {
+                      "entity": "climate.thermostat_schlafzimmer",
+                      "name": "Schlafzimmer",
+                      "attribute": "current_temperature"
+                    },
+                    {
+                      "entity": "climate.thermostat_marit_s_zimmer",
+                      "name": "Marit's Zimmer",
+                      "attribute": "current_temperature"
+                    },
+                    {
+                      "entity": "climate.thermostat_hauke_s_zimmer",
+                      "name": "Hauke's Zimmer",
+                      "attribute": "current_temperature"
+                    }
+                  ],
+                  "show": {
+                    "graph": "line",
+                    "average": true,
+                    "labels": true,
+                    "labels_secondary": true,
+                    "legend": true
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
                   "show_name": true,
                   "show_icon": true,
                   "type": "button",
@@ -421,85 +479,9 @@
                     "columns": 6,
                     "rows": 3
                   }
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "entity": "input_boolean.urlaubsmodus_umwalzpumpe",
-                  "show_state": true,
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "name": "Umwälzpumpe Urlaubsmodus"
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Heizung 1. OG",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "thermostat",
-                  "entity": "climate.thermostat_arbeitszimmer",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "name": "Arbeitszimmer"
-                },
-                {
-                  "type": "thermostat",
-                  "entity": "climate.thermostat_schlafzimmer",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "name": "Schlafzimmer"
-                },
-                {
-                  "type": "thermostat",
-                  "entity": "climate.thermostat_marit_s_zimmer",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "name": "Marits Zimmer"
-                },
-                {
-                  "type": "thermostat",
-                  "entity": "climate.thermostat_badezimmer",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "name": "Badezimmer 1. OG"
-                },
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Heizung 2. OG",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "thermostat",
-                  "entity": "climate.thermostat_hauke_s_zimmer",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "name": "Haukes Zimmer"
                 }
               ],
-              "column_span": 2
+              "column_span": 1
             }
           ]
         },

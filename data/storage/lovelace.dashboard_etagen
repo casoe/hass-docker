@@ -223,16 +223,6 @@
               "type": "grid",
               "cards": [
                 {
-                  "show_current": true,
-                  "show_forecast": true,
-                  "type": "weather-forecast",
-                  "entity": "weather.forecast_home",
-                  "forecast_type": "daily",
-                  "grid_options": {
-                    "columns": "full"
-                  }
-                },
-                {
                   "type": "heading",
                   "heading": "Eingangsbereich",
                   "heading_style": "title"

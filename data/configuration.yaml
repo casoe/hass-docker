@@ -14,6 +14,7 @@ scene: !include scenes.yaml
 template: !include templates.yaml
 recorder: !include recorder.yaml
 
+import_statistics:
 
 cover:
   - platform: template
