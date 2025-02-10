@@ -391,6 +391,12 @@
               "type": "grid",
               "cards": [
                 {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Heizung",
+                  "heading_style": "title"
+                },
+                {
                   "show_name": true,
                   "show_icon": true,
                   "type": "button",
@@ -413,7 +419,7 @@
                 },
                 {
                   "type": "markdown",
-                  "content": "<table width=100%> \n\t<tr>\n\t\t<td align=left> Arbeitszimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_arbeitszimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_arbeitszimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Badezimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_badezimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_badezimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Schlafzimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_schlafzimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_schlafzimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Marit's Zimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_marit_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_marit_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Hauke's Zimmer  </td>\n\t\t<td align=left> {{ state_attr('climate.thermostat_hauke_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_hauke_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_battery')  }} %</td>\n\t</tr>"
+                  "content": "<table width=100%> \n\t<tr>\n\t\t<th align=left>Raum</th>\n\t\t<th>Voreinstellung</th>\n        <th>Aktuell</th>\n\t\t<th>Ziel</th>\n        <th>Batterie</th>\n\t</tr>\t\n    <tr>\n\t\t<td align=left> Arbeitszimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_arbeitszimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_arbeitszimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_arbeitszimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Badezimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_badezimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_badezimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_badezimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Schlafzimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_schlafzimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_schlafzimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_schlafzimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Marit's Zimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_marit_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_marit_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_marit_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Hauke's Zimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_hauke_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_hauke_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_hauke_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_battery')  }} %</td>\n\t</tr>"
                 },
                 {
                   "type": "custom:mini-graph-card",
@@ -465,6 +471,12 @@
             {
               "type": "grid",
               "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Sonstiges",
+                  "heading_style": "title"
+                },
                 {
                   "show_name": true,
                   "show_icon": true,

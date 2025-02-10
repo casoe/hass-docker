@@ -19,6 +19,10 @@
                   "forecast_type": "daily"
                 },
                 {
+                  "type": "markdown",
+                  "content": "<table width=100%> \n\t<tr>\n\t\t<th align=left>Raumtemperaturen</th>\n\t\t<th>Aktuell</th>\n\t\t<th>Ziel</th>\n\t</tr>\n\t<tr>\n\t\t<td align=left> Arbeitszimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_arbeitszimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Badezimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_badezimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Schlafzimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_schlafzimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Marit's Zimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_marit_s_zimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Hauke's Zimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_hauke_s_zimmer', 'temperature') }} °C</td>\n\t</tr>"
+                },
+                {
                   "type": "heading",
                   "icon": "",
                   "heading": "Power Flow Card",
@@ -131,6 +135,9 @@
                     {
                       "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung",
                       "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.batteries_batterieladung"
                     }
                   ]
                 },
@@ -222,19 +229,6 @@
                 {
                   "type": "entities",
                   "entities": [
-                    {
-                      "entity": "switch.testgerat",
-                      "name": "Warmwasser (provisorisch)"
-                    }
-                  ]
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "sensor.testgerat_energy_power",
-                      "name": "Warmwasser (provisorisch)"
-                    },
                     {
                       "entity": "sensor.fernseher_power",
                       "name": "Fernseher"
