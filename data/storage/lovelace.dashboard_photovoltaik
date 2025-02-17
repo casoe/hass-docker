@@ -19,10 +19,6 @@
                   "forecast_type": "daily"
                 },
                 {
-                  "type": "markdown",
-                  "content": "<table width=100%> \n\t<tr>\n\t\t<th align=left>Raumtemperaturen</th>\n\t\t<th>Aktuell</th>\n\t\t<th>Ziel</th>\n\t</tr>\n\t<tr>\n\t\t<td align=left> Arbeitszimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_arbeitszimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Badezimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_badezimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Schlafzimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_schlafzimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Marit's Zimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_marit_s_zimmer', 'temperature') }} °C</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Hauke's Zimmer  </td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=right>{{ state_attr('climate.thermostat_hauke_s_zimmer', 'temperature') }} °C</td>\n\t</tr>"
-                },
-                {
                   "type": "heading",
                   "icon": "",
                   "heading": "Power Flow Card",
@@ -51,30 +47,42 @@
                     },
                     "home": {
                       "secondary_info": {
-                        "decimals": 2,
+                        "decimals": 1,
                         "unit_white_space": false,
-                        "display_zero": false
+                        "display_zero": false,
+                        "entity": "sensor.verbrauch_vom_haus_tag_kwh",
+                        "unit_of_measurement": "kWh"
                       },
                       "entity": "sensor.verbrauch_vom_haus",
                       "override_state": true,
                       "name": "Haus",
-                      "icon": ""
+                      "icon": "",
+                      "subtract_individual": true,
+                      "use_metadata": true
                     },
                     "individual": [
                       {
-                        "entity": "sensor.e_ladekabel_energy_power",
+                        "entity": "sensor.shellypro3em_2cbcbba6d5dc_total_active_power",
                         "secondary_info": {
-                          "entity": "sensor.e_ladekabel_energy_today",
-                          "decimals": 2,
+                          "entity": "sensor.warmepumpe_tagesverbrauch",
                           "unit_of_measurement": "kWh",
-                          "display_zero": false
+                          "decimals": 1,
+                          "icon": ""
                         },
-                        "name": "E-Ladekabel",
+                        "name": "Wärmepumpe",
+                        "icon": "mdi:heat-pump"
+                      },
+                      {
+                        "entity": "sensor.go_echarger_276094_power_total",
+                        "secondary_info": {
+                          "entity": "sensor.go_echarger_276094_energy_charged",
+                          "unit_of_measurement": "kWh",
+                          "decimals": 1
+                        },
+                        "icon": "mdi:ev-station",
+                        "name": "Wallbox",
                         "display_zero": true,
-                        "display_zero_state": true,
-                        "icon": "mdi:car",
-                        "calculate_flow_rate": false,
-                        "decimals": 0
+                        "display_zero_state": true
                       }
                     ],
                     "fossil_fuel_percentage": {
@@ -176,6 +184,14 @@
                     },
                     {
                       "entity": "sensor.verbrauch_vom_haus_tag_kwh"
+                    },
+                    {
+                      "entity": "sensor.warmepumpe_tagesverbrauch",
+                      "name": "Wärmepumpe"
+                    },
+                    {
+                      "entity": "sensor.go_echarger_276094_energy_charged",
+                      "name": "Wallbox"
                     }
                   ]
                 }
@@ -229,6 +245,14 @@
                 {
                   "type": "entities",
                   "entities": [
+                    {
+                      "entity": "sensor.shellypro3em_2cbcbba6d5dc_total_active_power",
+                      "name": "Wärmepumpe"
+                    },
+                    {
+                      "entity": "sensor.go_echarger_276094_power_total",
+                      "name": "Wallbox "
+                    },
                     {
                       "entity": "sensor.fernseher_power",
                       "name": "Fernseher"

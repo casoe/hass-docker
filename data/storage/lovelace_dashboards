@@ -38,6 +38,15 @@
         "require_admin": false,
         "mode": "storage",
         "url_path": "dashboard-system"
+      },
+      {
+        "id": "dashboard_heizung",
+        "show_in_sidebar": true,
+        "title": "Heizung",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-heizung",
+        "icon": "mdi:heat-pump"
       }
     ]
   }

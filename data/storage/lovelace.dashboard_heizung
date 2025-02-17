@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_heizung",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Thermostate",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.thermostat_arbeitszimmer_temperature",
+                      "name": "Arbeitszimmer"
+                    },
+                    {
+                      "entity": "sensor.thermostat_badezimmer_temperature",
+                      "name": "Badezimmer"
+                    },
+                    {
+                      "entity": "sensor.thermostat_hauke_s_zimmer_temperature",
+                      "name": "Hauke's Zimmer"
+                    },
+                    {
+                      "entity": "sensor.thermostat_marit_s_zimmer_temperature",
+                      "name": "Marit's Zimmer"
+                    },
+                    {
+                      "entity": "sensor.thermostat_schlafzimmer_temperature",
+                      "name": "Schlafzimmer"
+                    }
+                  ]
+                },
+                {
+                  "type": "markdown",
+                  "content": "<table width=100%> \n\t<tr>\n\t\t<th align=left>Raum</th>\n\t\t<th>Voreinstellung</th>\n        <th>Aktuell</th>\n\t\t<th>Ziel</th>\n        <th>Batterie</th>\n\t</tr>\t\n    <tr>\n\t\t<td align=left> Arbeitszimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_arbeitszimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_arbeitszimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_arbeitszimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_arbeitszimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Badezimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_badezimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_badezimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_badezimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_badezimmer_battery')  }} %</td>\n\t</tr> \n\t<tr>\n\t\t<td align=left> Hauke's Zimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_hauke_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_hauke_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_hauke_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_hauke_s_zimmer_battery')  }} %</td>\n\t</tr>\n\t<tr>\n\t\t<td align=left> Marit's Zimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_marit_s_zimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_marit_s_zimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_marit_s_zimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_marit_s_zimmer_battery')  }} %</td>\n\t</tr>\n   \t<tr>\n\t\t<td align=left> Schlafzimmer  </td>\n\t\t<td align=middle> {{ state_attr('climate.thermostat_schlafzimmer', 'preset_mode') }}</td>\n\t\t<td align=middle>{{ states('sensor.thermostat_schlafzimmer_temperature')  }} °C</td>\n\t\t<td align=middle>{{ state_attr('climate.thermostat_schlafzimmer', 'temperature') }} °C</td>\n\t\t<td align=right>{{ states('sensor.thermostat_schlafzimmer_battery')  }} %</td>\n\t</tr> "
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Steuerung",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_arbeitszimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Arbeitszimmer"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_badezimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Badezimmer"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_hauke_s_zimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Hauke's Zimmer"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_marit_s_zimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Marit's Zimmer"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.thermostat_schlafzimmer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 3
+                  },
+                  "name": "Schlafzimmer"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

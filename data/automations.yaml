@@ -643,7 +643,7 @@
   - action: number.set_value
     metadata: {}
     data:
-      value: '5000'
+      value: '2500'
     target:
       entity_id: number.batteries_maximale_entladeleistung
   - action: input_boolean.turn_off
@@ -717,4 +717,22 @@
         data: {}
         target:
           entity_id: switch.testgerat
+  mode: single
+- id: '1739719124356'
+  alias: go-e PV-Überschussladen
+  description: Einfache Automatisierung zur Aktualisierung der Werte, die für die
+    Nutzung des Solarüberschusses mit go-e Charger benötigt werden
+  triggers:
+  - seconds: /5
+    trigger: time_pattern
+  conditions: []
+  actions:
+  - action: mqtt.publish
+    metadata: {}
+    data:
+      qos: '0'
+      retain: false
+      topic: go-eCharger/276094/ids/set
+      payload: '{{''{"pGrid": ''}}{{-states(''sensor.smart_meter_summe_der_aktiven_momentanleistung'')|float(0)}}{{'',
+        "pPv":''}}{{states(''sensor.pv_dach_leistung_summe'')}}{{'', "pAkku":''}}{{states(''sensor.batteries_lade_entladeleistung'')}}}''}}'
   mode: single

@@ -8,6 +8,80 @@
         {
           "type": "sections",
           "max_columns": 4,
+          "title": "Wallbox",
+          "path": "wallbox",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Wallbox Garage Tina",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.go_echarger_276094_power_total",
+                      "name": "Aktuelle Leistung"
+                    },
+                    {
+                      "entity": "sensor.go_echarger_276094_energy_charged",
+                      "name": "Ladung"
+                    },
+                    {
+                      "entity": "sensor.go_echarger_276094_total_energy_charged",
+                      "name": "Ladung (insgesamt)"
+                    },
+                    {
+                      "entity": "sensor.go_echarger_276094_car_state",
+                      "name": "Status"
+                    },
+                    {
+                      "entity": "select.go_echarger_276094_logic_mode",
+                      "name": "Modus"
+                    }
+                  ]
+                },
+                {
+                  "type": "markdown",
+                  "content": "<table width=100%> <tr><td align=left><ha-icon icon=\"mdi:currency-eur\"></ha-icon> Ungefähre Kosten (0.35Ct/kWh) </td><td align=right> {{  '%.2f' | format((states('sensor.go_echarger_276094_energy_charged')) | float * 0.35 | round(2) ) }} € </tr> <tr>"
+                },
+                {
+                  "type": "heading",
+                  "heading": "Batterie",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "number.batteries_maximale_ladeleistung",
+                      "name": "Maximale Ladeleistung"
+                    },
+                    {
+                      "entity": "number.batteries_maximale_entladeleistung",
+                      "name": "Maximale Entladeleistung"
+                    },
+                    {
+                      "entity": "sensor.batteries_batterieladung",
+                      "name": "Batterieladung"
+                    },
+                    {
+                      "entity": "sensor.batteries_lade_entladeleistung",
+                      "name": "Lade-/Entladeleistung"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "badges": []
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
           "title": "E-Laden",
           "path": "e-laden",
           "sections": [
@@ -28,20 +102,6 @@
                   "grid_options": {
                     "columns": "full"
                   }
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "number.batteries_maximale_entladeleistung"
-                    },
-                    {
-                      "entity": "sensor.batteries_batterieladung"
-                    },
-                    {
-                      "entity": "sensor.batteries_lade_entladeleistung"
-                    }
-                  ]
                 },
                 {
                   "type": "heading",
