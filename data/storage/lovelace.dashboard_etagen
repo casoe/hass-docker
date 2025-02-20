@@ -118,42 +118,8 @@
                   "hide_state": false
                 },
                 {
-                  "type": "heading",
-                  "heading": "Pi-Hole",
-                  "heading_style": "title"
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "entity": "switch.pi_hole",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "show_state": true
-                },
-                {
-                  "type": "gauge",
-                  "entity": "sensor.pi_hole_werbungsanteil_heute_blockiert",
-                  "grid_options": {
-                    "columns": 6,
-                    "rows": 3
-                  },
-                  "needle": true,
-                  "name": "Werbung heute blockiert",
-                  "severity": {
-                    "green": 20,
-                    "yellow": 0,
-                    "red": 0
-                  }
-                },
-                {
                   "type": "markdown",
-                  "content": "Link to [Pi-Hole](http://192.168.2.6/admin/index.php)"
+                  "content": "Link to [Pi-Hole](http://192.168.2.6/admin)"
                 }
               ]
             },
@@ -757,26 +723,6 @@
                     "rows": 3
                   },
                   "show_state": true
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Heizungsraum",
-                  "heading_style": "title"
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "entity": "switch.umwalzpumpe"
                 }
               ]
             }

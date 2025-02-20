@@ -19,6 +19,16 @@
                   "forecast_type": "daily"
                 },
                 {
+                  "type": "entity",
+                  "entity": "sensor.pv_vorhersage_heute_forecast_solar",
+                  "name": "Forecast heute"
+                },
+                {
+                  "type": "entity",
+                  "entity": "sensor.pv_vorhersage_morgen_forecast_solar",
+                  "name": "Forecast morgen"
+                },
+                {
                   "type": "heading",
                   "icon": "",
                   "heading": "Power Flow Card",
@@ -37,7 +47,7 @@
                       "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung",
                       "secondary_info": {},
                       "color_value": false,
-                      "display_zero_tolerance": 10
+                      "display_zero_tolerance": 20
                     },
                     "solar": {
                       "entity": "sensor.pv_dach_leistung_summe",
@@ -75,14 +85,18 @@
                       {
                         "entity": "sensor.go_echarger_276094_power_total",
                         "secondary_info": {
-                          "entity": "sensor.go_echarger_276094_energy_charged",
+                          "entity": "sensor.wallbox_tagesverbrauch",
                           "unit_of_measurement": "kWh",
-                          "decimals": 1
+                          "decimals": 1,
+                          "display_zero": true,
+                          "unit_white_space": true
                         },
                         "icon": "mdi:ev-station",
-                        "name": "Wallbox",
+                        "name": "go-e Charger",
                         "display_zero": true,
-                        "display_zero_state": true
+                        "display_zero_state": true,
+                        "unit_of_measurement": "W",
+                        "calculate_flow_rate": true
                       }
                     ],
                     "fossil_fuel_percentage": {
@@ -180,7 +194,8 @@
                       "entity": "sensor.pv_dach_tagesertrag_helfer"
                     },
                     {
-                      "entity": "sensor.balkonkraftwerk_energy_today"
+                      "entity": "sensor.balkonkraftwerk_energy_today",
+                      "name": "Balkonkraftwerk  Tagesertrag"
                     },
                     {
                       "entity": "sensor.verbrauch_vom_haus_tag_kwh"
@@ -190,7 +205,7 @@
                       "name": "Wärmepumpe"
                     },
                     {
-                      "entity": "sensor.go_echarger_276094_energy_charged",
+                      "entity": "sensor.wallbox_tagesverbrauch",
                       "name": "Wallbox"
                     }
                   ]
@@ -296,6 +311,37 @@
           ],
           "max_columns": 4,
           "title": "Überblick"
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "path": "",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "history-graph",
+                  "hours_to_show": 8,
+                  "entities": [
+                    "sensor.pv_dach_leistung_ost",
+                    "sensor.pv_dach_leistung_west",
+                    "sensor.balkonkraftwerk_energy_power"
+                  ],
+                  "title": "PV-Erzeugung",
+                  "min_y_axis": 0,
+                  "max_y_axis": 8000,
+                  "fit_y_data": true,
+                  "grid_options": {
+                    "columns": 48,
+                    "rows": 8
+                  }
+                }
+              ],
+              "column_span": 4
+            }
+          ],
+          "title": "Grafiken"
         },
         {
           "title": "Entitäten",
@@ -440,6 +486,50 @@
           ],
           "badges": [],
           "type": "masonry"
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "Testentitäten",
+          "path": "testentitaten",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.energie_pv_dach_korrigierter_gesamtertrag"
+                    },
+                    {
+                      "entity": "sensor.energie_pv_dach_gesamtertrag"
+                    },
+                    {
+                      "entity": "sensor.energie_pv_batterie_gesamtentladung"
+                    },
+                    {
+                      "entity": "sensor.energie_pv_batterie_gesamtladung"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "type": "button",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "automation.energiezahler_auf_0"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

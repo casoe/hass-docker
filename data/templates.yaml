@@ -70,3 +70,12 @@
       unit_of_measurement: 'kWh'
       availability: >
         {{ has_value('sensor.inverter_tagesertrag') }}
+    - name: "Energie PV Dach Korrigierter Gesamtertrag"
+      unique_id: "energie_pv_dach_korrigierter_gesamtertrag"
+      state: >
+        {{ float(states('sensor.energie_pv_dach_gesamtertrag')) -
+           float(states('sensor.energie_pv_batterie_gesamtentladung')) +
+           float(states('sensor.energie_pv_batterie_gesamtladung')) }}
+      device_class: energy
+      state_class: total_increasing
+      unit_of_measurement: 'kWh'

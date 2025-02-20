@@ -20,6 +20,22 @@
                   "heading_style": "title"
                 },
                 {
+                  "type": "markdown",
+                  "content": "<ha-icon icon=\"mdi:car\"> </ha-icon> Status Fahrzeug {% if is_state('binary_sensor.go_echarger_276094_car', 'on') %} <ha-alert alert-type=\"success\">Verbunden</ha-alert> {% else %} <ha-alert alert-type=\"info\">Nicht verbunden</ha-alert>{% endif %}",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "entity",
+                  "entity": "sensor.wallbox_tagesverbrauch",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                },
+                {
                   "type": "entities",
                   "entities": [
                     {
@@ -28,11 +44,14 @@
                     },
                     {
                       "entity": "sensor.go_echarger_276094_energy_charged",
-                      "name": "Ladung"
+                      "name": "Aktuelle/Letzte Ladung"
                     },
                     {
                       "entity": "sensor.go_echarger_276094_total_energy_charged",
                       "name": "Ladung (insgesamt)"
+                    },
+                    {
+                      "entity": "binary_sensor.go_echarger_276094_car"
                     },
                     {
                       "entity": "sensor.go_echarger_276094_car_state",
@@ -49,8 +68,30 @@
                   "content": "<table width=100%> <tr><td align=left><ha-icon icon=\"mdi:currency-eur\"></ha-icon> Ungefähre Kosten (0.35Ct/kWh) </td><td align=right> {{  '%.2f' | format((states('sensor.go_echarger_276094_energy_charged')) | float * 0.35 | round(2) ) }} € </tr> <tr>"
                 },
                 {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.go_echarger_276094_power_total",
+                      "name": "go-e Charger"
+                    }
+                  ],
+                  "min_y_axis": 0,
+                  "max_y_axis": 7500,
+                  "fit_y_data": true,
+                  "hours_to_show": 12,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 4
+                  }
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
                   "type": "heading",
-                  "heading": "Batterie",
+                  "heading": "Batterie der PV-Anlage",
                   "heading_style": "title"
                 },
                 {
@@ -78,136 +119,6 @@
             }
           ],
           "badges": []
-        },
-        {
-          "type": "sections",
-          "max_columns": 4,
-          "title": "E-Laden",
-          "path": "e-laden",
-          "sections": [
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Lademanagement",
-                  "heading_style": "title"
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "type": "button",
-                  "entity": "input_boolean.e_auto_laden",
-                  "show_state": true,
-                  "grid_options": {
-                    "columns": "full"
-                  }
-                },
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Aktueller/Letzer Ladevorgang",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "timer.e_auto_timer"
-                    },
-                    {
-                      "entity": "sensor.e_auto_zahler"
-                    }
-                  ]
-                },
-                {
-                  "type": "markdown",
-                  "content": "<table width=100%> <tr><td align=left><ha-icon icon=\"mdi:currency-eur\"></ha-icon> Ungefähre Kosten (0.35Ct/kWh) </td><td align=right> {{  '%.2f' | format((states('sensor.e_auto_zahler')) | float * 0.35 | round(2) ) }} € </tr> <tr>"
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "icon": "",
-                  "heading": "Ladedaten",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "switch.e_ladekabel"
-                    },
-                    {
-                      "entity": "sensor.e_ladekabel_energy_power"
-                    },
-                    {
-                      "entity": "sensor.e_ladekabel_energy_voltage"
-                    },
-                    {
-                      "entity": "sensor.e_ladekabel_energy_current"
-                    },
-                    {
-                      "entity": "sensor.e_ladekabel_energy_total"
-                    },
-                    {
-                      "entity": "sensor.e_ladekabel_esp32_temperature"
-                    }
-                  ]
-                },
-                {
-                  "type": "custom:power-flow-card-plus",
-                  "entities": {
-                    "battery": {
-                      "entity": "",
-                      "state_of_charge": "sensor.carstens_iphone_12_battery_level"
-                    },
-                    "grid": {
-                      "entity": "sensor.smart_meter_summe_der_aktiven_momentanleistung"
-                    },
-                    "home": {
-                      "secondary_info": {}
-                    },
-                    "individual": []
-                  },
-                  "clickable_entities": true,
-                  "display_zero_lines": true,
-                  "use_new_flow_rate_model": true,
-                  "w_decimals": 0,
-                  "kw_decimals": 1,
-                  "min_flow_rate": 0.75,
-                  "max_flow_rate": 6,
-                  "max_expected_power": 2000,
-                  "min_expected_power": 0.01,
-                  "watt_threshold": 1000,
-                  "transparency_zero_lines": 0,
-                  "grid_options": {
-                    "columns": "full",
-                    "rows": 2
-                  }
-                },
-                {
-                  "type": "history-graph",
-                  "entities": [
-                    {
-                      "entity": "sensor.e_ladekabel_energy_power"
-                    }
-                  ],
-                  "min_y_axis": 0,
-                  "max_y_axis": 2300,
-                  "fit_y_data": true,
-                  "hours_to_show": 12,
-                  "grid_options": {
-                    "columns": 12,
-                    "rows": 4
-                  }
-                }
-              ]
-            }
-          ]
         },
         {
           "title": "Garagen",
@@ -313,6 +224,175 @@
                     "columns": 4,
                     "rows": 3
                   }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "title": "ID.7 Pro S",
+          "path": "id-7-pro-s",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Kilometer",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.id_7_pro_s_odometer"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_service_inspection_days"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "heading": "Klimatisierung",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "number.id_7_pro_s_climatisation_target_temperature"
+                    },
+                    {
+                      "entity": "switch.id_7_pro_s_electric_climatisation"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_electric_remaining_climatisation_time"
+                    },
+                    {
+                      "entity": "switch.id_7_pro_s_window_heater"
+                    }
+                  ]
+                },
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Batterie",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.id_7_pro_s_battery_level"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_battery_cruising_range"
+                    },
+                    {
+                      "entity": "switch.id_7_pro_s_battery_care_mode"
+                    },
+                    {
+                      "entity": "number.id_7_pro_s_battery_target_charge_level"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_hv_battery_max_temperature"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_hv_battery_min_temperature"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Laden",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.id_7_pro_s_charging"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_charger_max_ac_setting"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_charger_type"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_charging_power"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_charging_time_left"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_charging_cable_connected"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_charging_cable_locked"
+                    },
+                    {
+                      "entity": "sensor.id_7_pro_s_charging_rate"
+                    },
+                    {
+                      "entity": "number.id_7_pro_s_battery_target_charge_level"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "",
+                  "heading": "Türen und Fenster",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_door_closed_left_front"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_door_closed_right_front"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_door_closed_left_back"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_door_closed_right_back"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_doors_locked"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_window_closed_left_front"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_window_closed_right_front"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_window_closed_right_back"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_window_closed_left_back"
+                    },
+                    {
+                      "entity": "binary_sensor.id_7_pro_s_windows_closed"
+                    }
+                  ]
                 }
               ]
             }

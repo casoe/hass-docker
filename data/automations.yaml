@@ -509,7 +509,7 @@
   description: ''
   triggers:
   - trigger: time_pattern
-    seconds: '20'
+    seconds: '10'
   conditions: []
   actions:
   - action: homeassistant.update_entity
@@ -570,88 +570,6 @@
     data:
       message: Haustür (Aqara Smart Lock) noch nicht abgeschlossen!
   mode: single
-- id: '1737996393816'
-  alias: Daily Backup
-  description: ''
-  triggers:
-  - trigger: time
-    at: 03:00:00
-  conditions: []
-  actions:
-  - action: backup.create
-    metadata: {}
-    data: {}
-  mode: single
-- id: '1738096587023'
-  alias: E-Auto laden an
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - input_boolean.e_auto_laden
-    to: 'on'
-  conditions: []
-  actions:
-  - action: switch.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.e_ladekabel
-  - action: timer.start
-    metadata: {}
-    data:
-      duration: 07:00:00
-    target:
-      entity_id: timer.e_auto_timer
-  - action: utility_meter.calibrate
-    metadata: {}
-    data:
-      value: '0.00'
-    target:
-      entity_id: sensor.e_auto_zahler
-  - action: number.set_value
-    metadata: {}
-    data:
-      value: '300'
-    target:
-      entity_id: number.batteries_maximale_entladeleistung
-  mode: single
-- id: '1738097274716'
-  alias: E-Auto laden aus
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - input_boolean.e_auto_laden
-    to: 'off'
-  - trigger: state
-    entity_id:
-    - timer.e_auto_timer
-    to: idle
-  conditions: []
-  actions:
-  - action: switch.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.e_ladekabel
-  - action: timer.cancel
-    metadata: {}
-    data: {}
-    target:
-      entity_id: timer.e_auto_timer
-  - action: number.set_value
-    metadata: {}
-    data:
-      value: '2500'
-    target:
-      entity_id: number.batteries_maximale_entladeleistung
-  - action: input_boolean.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: input_boolean.e_auto_laden
-  mode: single
 - id: '1738524132549'
   alias: PV Dach Tagesertrag speichern
   description: ''
@@ -687,39 +605,8 @@
     target:
       entity_id: input_number.pv_dach_tagesertrag_old
   mode: single
-- id: '1738690458255'
-  alias: Provisorische Heizung gem. Zeitplan
-  description: ''
-  triggers:
-  - entity_id:
-    - schedule.zeitplan_provisorische_heizung
-    trigger: state
-  conditions: []
-  actions:
-  - choose:
-    - conditions:
-      - condition: state
-        entity_id: schedule.zeitplan_provisorische_heizung
-        state: 'on'
-      sequence:
-      - action: switch.turn_on
-        metadata: {}
-        data: {}
-        target:
-          entity_id: switch.testgerat
-    - conditions:
-      - condition: state
-        entity_id: schedule.zeitplan_provisorische_heizung
-        state: 'off'
-      sequence:
-      - action: switch.turn_off
-        metadata: {}
-        data: {}
-        target:
-          entity_id: switch.testgerat
-  mode: single
 - id: '1739719124356'
-  alias: go-e PV-Überschussladen
+  alias: go-e PV-Überschussladen Update per MQTT
   description: Einfache Automatisierung zur Aktualisierung der Werte, die für die
     Nutzung des Solarüberschusses mit go-e Charger benötigt werden
   triggers:
@@ -733,6 +620,101 @@
       qos: '0'
       retain: false
       topic: go-eCharger/276094/ids/set
-      payload: '{{''{"pGrid": ''}}{{-states(''sensor.smart_meter_summe_der_aktiven_momentanleistung'')|float(0)}}{{'',
-        "pPv":''}}{{states(''sensor.pv_dach_leistung_summe'')}}{{'', "pAkku":''}}{{states(''sensor.batteries_lade_entladeleistung'')}}}''}}'
+      payload: '{{''{"pGrid": ''}}{{states(''sensor.smart_meter_summe_der_aktiven_momentanleistung'')}}{{'',
+        "pPv":''}}{{states(''sensor.pv_dach_leistung_summe'')}}{{'', "pAkku":0}''}}'
+  mode: single
+- id: '1739826274846'
+  alias: go-e Fahrzeug verbunden, Batterie auf 0W Laden/Entladen
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.go_echarger_276094_car
+    to: 'on'
+  conditions: []
+  actions:
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '0'
+    target:
+      entity_id: number.batteries_maximale_entladeleistung
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '0'
+    target:
+      entity_id: number.batteries_maximale_ladeleistung
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: go-e Fahrzeug verbunden, Batterie auf 0W Laden/Entladen
+  mode: single
+- id: '1739826590450'
+  alias: go-e Fahrzeug getrennt, Batterie auf Default
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.go_echarger_276094_car
+    to: 'off'
+  conditions: []
+  actions:
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '2500'
+    target:
+      entity_id: number.batteries_maximale_entladeleistung
+  - action: number.set_value
+    metadata: {}
+    data:
+      value: '5000'
+    target:
+      entity_id: number.batteries_maximale_ladeleistung
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: go-e Fahrzeug getrennt, Batterie auf Default
+  mode: single
+- id: '1739888667499'
+  alias: go-e PV-Überschussladen beendet (10min < 10W)
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.go_echarger_276094_power_total
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    below: 10
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.go_echarger_276094_car
+    state: 'on'
+  actions:
+  - action: notify.signal_group
+    metadata: {}
+    data:
+      message: 'go-e PV-Überschussladen beendet, Fahrzeug trennen (Ladung: {{ states(''sensor.wallbox_tagesverbrauch'')
+        | round(2) }} kWh)'
+  mode: single
+- id: '1740079769324'
+  alias: Energiezähler auf 0
+  description: ''
+  triggers:
+  - trigger: time
+    at: 00:00:00
+  conditions: []
+  actions:
+  - action: utility_meter.calibrate
+    metadata: {}
+    data:
+      value: '0'
+    target:
+      entity_id:
+      - sensor.energie_pv_batterie_gesamtentladung
+      - sensor.energie_pv_batterie_gesamtladung
+      - sensor.energie_pv_dach_gesamtertrag
   mode: single
